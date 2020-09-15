@@ -2,9 +2,20 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 const prefix = config.prefix;
-const status = { activity: { name: '>help', type: 'WATCHING' }, status: 'dnd' };
+const status = { activity: { name: 'for >help', type: 'LISTENING' }, status: 'dnd' };
 const axios = require('axios');
+const express = require('express')
+const app = express()
+const port = 3000
 
+app.get('/', (req, res) => {
+  res.send(200)
+  console.log(`Pinged!`)
+})
+
+app.listen(port, () => {
+  console.log(`Express running`)
+})
 
 
 client.on('ready', () => {
