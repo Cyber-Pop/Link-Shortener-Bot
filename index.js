@@ -46,7 +46,7 @@ const shorten = (link, msg) => {
     if (error.response.data === `Error: Please enter a valid URL to shorten`) {
       let avatar = client.user.displayAvatarURL();
       let embed =  {
-        color: 0x0000ff,
+        color: 0xff0000,
         title: `Invalid URL`,
         description: `Please try again with a valid URL`,
         author: {
@@ -60,7 +60,7 @@ const shorten = (link, msg) => {
     } else if (error.response.data === `Error: Sorry, the URL you entered is on our internal blacklist. It may have been used abusively in the past, or it may link to another URL redirection service.`) {
       let avatar = client.user.displayAvatarURL();
       let embed =  {
-        color: 0x0000ff,
+        color: 0xff0000,
         title: `Blacklisted URL`,
         description: `This URL has been blacklisted. This can happen when it has been abused in the past or leads to URL shortner`,
         author: {
