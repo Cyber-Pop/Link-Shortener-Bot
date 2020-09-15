@@ -5,6 +5,8 @@ const prefix = config.prefix;
 const status = { activity: { name: '>help', type: 'WATCHING' }, status: 'dnd' };
 const axios = require('axios');
 
+
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
@@ -12,6 +14,8 @@ client.on('ready', () => {
     .then(console.log(`Status set`))
     .catch(console.error);
 });
+
+
 
 const shorten = (link, msg) => {
   if (!link) {
@@ -21,14 +25,26 @@ const shorten = (link, msg) => {
   axios.get(`https://is.gd/create.php?format=simple&url=${link}`)
   .then(function (response) {
     // handle success
-    console.log(response.data);
-    msg.channel.send(response.data)
+      let avatar = client.user.displayAvatarURL();
+      let embed =  {
+        color: 0x00ff00,
+        title: `Link:`,
+        description: `[${response.data}](${response.data})`,
+        author: {
+		    name: `Success`,
+		    icon_url: avatar
+      }
+    }
+
+    msg.channel.send({embed : embed})
   })
   .catch(function (error) {
     // handle error
-    console.log(error);
+    console.log(error.response.data);
   })
 }
+
+
 
 client.on('message', msg => {
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
@@ -55,16 +71,14 @@ client.on('message', msg => {
 
   } else if (command === `info`) {
     let avatar = client.user.displayAvatarURL();
-
-
     let embed =  {
         color: 0x9900ff,
         title: `About Me`,
-        description: `I started off as a side project meant to put my owners skills to the test in combining various things that I learned throughout my coding journer`,
+        description: `I started off as a side project meant to put my owners skills to the test in combining various things that I learned throughout my coding journer. I'm the first bot that my owner made to actually be published. This means that support will probably be nonexistent and downtime might happen more often than expected`,
         fields: [
           {
 		    	  name: 'Code',
-			      value: 'The code of the bot is open source. This mean you can host it yourself it I the owner breaks the main version (99% chace that he will). Just beware it is a a f\\*\\*\\*\\*\\*\\* mess. Click here to see the code. And remember you have been warned',
+			      value: 'The code of the bot is open source. This mean you can host it yourself it I the owner breaks the main version (99% chace that he will). Just beware it is a a f\\*\\*\\*\\*\\*\\* mess. Click [here](https://github.com/TheLimifiedLime/Link-Shortner-Bot) to see the code. And remember you have been warned',
 		      }
         ],
         author: {
@@ -78,7 +92,18 @@ client.on('message', msg => {
   
   else if (command === `shorten`) {
     if (!args.length) {
-      msg.channel.send(`You didn't provide a link ${msg.author}`)
+    let avatar = client.user.displayAvatarURL();
+    let embed =  {
+        color: 0xff0000,
+        title: `No Link Provided`,
+        description: `You didn't provide a link ${msg.author}`,
+        author: {
+		    name: `Error`,
+		    icon_url: avatar
+      }
+    }
+
+    msg.channel.send({embed : embed})
     } else {
        shorten(encodeURIComponent(args[0]), msg)
     }
