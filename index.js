@@ -41,10 +41,9 @@ const shorten = (link, msg) => {
   .catch(function (error) {
     // handle error
 
-    console.log(error.response.data)
+    //console.log(error.response.data)
 
     if (error.response.data === `Error: Please enter a valid URL to shorten`) {
-      msg.channel.send({})
       let avatar = client.user.displayAvatarURL();
       let embed =  {
         color: 0x0000ff,
