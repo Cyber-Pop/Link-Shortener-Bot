@@ -9,7 +9,7 @@ const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
-  res.send(200)
+  res.send(`Hello`)
   console.log(`Pinged!`)
 })
 
@@ -29,10 +29,6 @@ client.on('ready', () => {
 
 
 const shorten = (link, msg) => {
-  if (!link) {
-    console.log(`NO LINK!!!!!!!!!!!!!!!!!!!!!!`)
-  }
-
   axios.get(`https://is.gd/create.php?format=simple&url=${link}`)
   .then(function (response) {
     // handle success
