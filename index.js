@@ -17,6 +17,8 @@ app.listen(port, () => {
   console.log(`Express running`)
 })
 
+//dwd
+
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
