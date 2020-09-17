@@ -50,7 +50,7 @@ client.on('message', msg => {
     let embed =  {
         color: 0xff0000,
         title: `Missing Arguments`,
-        description: `The correct usage is \`${prefix}${commandName} ${command.usage}\``,
+        description: `The correct usage is \`${prefix}${command.name} ${command.usage}\``,
         author: {
 		    name: `Error`,
 		    icon_url: client.user.displayAvatarURL()
