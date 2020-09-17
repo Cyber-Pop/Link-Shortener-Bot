@@ -1,23 +1,11 @@
 module.exports = {
   name: 'shorten',
+  args: true,
   execute(msg, args, client) {
     const axios = require('axios');
     const strings = require('../strings.json')
     let avatar = client.user.displayAvatarURL();
 
-    if (!args.length) {
-    let embed =  {
-        color: 0xff0000,
-        title: `No Link Provided`,
-        description: `You didn't provide a link ${msg.author}`,
-        author: {
-		    name: `Error`,
-		    icon_url: avatar
-      }
-    }
-
-    msg.channel.send({embed : embed})
-    } else {
         let link = encodeURIComponent(args[0], msg)
 
         axios.get(`https://is.gd/create.php?format=simple&url=${link}`)
@@ -70,4 +58,3 @@ module.exports = {
       })
     }
   }
-}

@@ -46,6 +46,20 @@ client.on('message', msg => {
 
   const command = client.commands.get(commandName)
 
+  if (command.args && !args.lenght) {
+    let embed =  {
+        color: 0xff0000,
+        title: `Missing Arguments`,
+        description: `You didn't provide a link ${msg.author}`,
+        author: {
+		    name: `Error`,
+		    icon_url: client.user.displayAvatarURL()
+      }
+    }
+
+    return msg.channel.send({embed : embed})
+  }
+
   try {
     command.execute(msg, args, client);
   } catch (error) {

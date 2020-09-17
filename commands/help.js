@@ -1,5 +1,6 @@
 module.exports = {
   name: 'help',
+  args: false,
   execute(msg, arg, client) {
     const config = require('../config.json');
     const prefix = config.prefix;
