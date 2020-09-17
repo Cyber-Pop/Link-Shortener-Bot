@@ -13,8 +13,8 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
 }
 
 app.get('/', (req, res) => {
@@ -38,19 +38,21 @@ client.on('message', msg => {
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
+  const commandName = args.shift().toLowerCase();
 
   console.log(args)
 
-  if (command === `ping`) {
-    client.commands.get('ping').execute(msg, args, client);
-  } else if (command === `help`) {
-    client.commands.get('help').execute(msg, args, client);
-  } else if (command === `info`) {
-    client.commands.get('info').execute(msg, args, client);
-  } else if (command === `shorten`) {
-    client.commands.get('shorten').execute(msg, args, client);
-  }
-});
+  if (!client.commands.has(commandName)) return;
+
+  const command = client.commands.get(commandName)
+
+  try {
+    command.execute(msg, args, client);
+  } catch (error) {
+    console.error(error);
+    msg.reply('An error occured while running your command');
+  };
+
+})
 
 client.login(process.env.BOT_TOKEN);

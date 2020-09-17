@@ -2,9 +2,10 @@ module.exports = {
   name: 'shorten',
   execute(msg, args, client) {
     const axios = require('axios');
+    const strings = require('../strings.json')
+    let avatar = client.user.displayAvatarURL();
 
     if (!args.length) {
-    let avatar = client.user.displayAvatarURL();
     let embed =  {
         color: 0xff0000,
         title: `No Link Provided`,
@@ -22,7 +23,6 @@ module.exports = {
         axios.get(`https://is.gd/create.php?format=simple&url=${link}`)
         .then(function (response) {
             // handle success
-            let avatar = client.user.displayAvatarURL();
             let embed =  {
               color: 0x00ff00,
               title: `Link`,
@@ -41,8 +41,7 @@ module.exports = {
           // Used to get error type and log it to the console while in development
           //console.log(error.response.data)
 
-          if (error.response.data === `Error: Please enter a valid URL to shorten`) {
-            let avatar = client.user.displayAvatarURL();
+          if (error.response.data === strings.isgdInvalid) {
             let embed =  {
                 color: 0xff0000,
                 title: `Invalid URL`,
@@ -55,8 +54,7 @@ module.exports = {
 
           msg.channel.send({embed : embed})
 
-          } else if (error.response.data === `Error: Sorry, the URL you entered is on our internal blacklist. It may have been used abusively in the past, or it may link to another URL redirection service.`) {
-            let avatar = client.user.displayAvatarURL();
+          } else if (error.response.data === strings.isgdBlacklisted) {
             let embed =  {
               color: 0xff0000,
               title: `Blacklisted URL`,
