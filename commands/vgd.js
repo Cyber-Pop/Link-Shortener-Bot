@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'shorten',
+  name: 'vgd',
   args: true,
   usage: '[link]',
   execute(msg, args, client) {
@@ -9,7 +9,7 @@ module.exports = {
 
         let link = encodeURIComponent(args[0], msg)
 
-        axios.get(`https://is.gd/create.php?format=simple&url=${link}`)
+        axios.get(`https://v.gd/create.php?format=simple&url=${link}`)
         .then(function (response) {
             // handle success
             let embed =  {

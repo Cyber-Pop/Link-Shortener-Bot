@@ -46,11 +46,11 @@ client.on('message', msg => {
 
   const command = client.commands.get(commandName)
 
-  if (command.args && !args.lenght) {
+  if (command.args && !args.length) {
     let embed =  {
         color: 0xff0000,
         title: `Missing Arguments`,
-        description: `You didn't provide a link ${msg.author}`,
+        description: `The correct usage is \`${prefix}${commandName} ${command.usage}\``,
         author: {
 		    name: `Error`,
 		    icon_url: client.user.displayAvatarURL()

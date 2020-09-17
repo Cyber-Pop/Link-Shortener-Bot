@@ -1,6 +1,7 @@
 module.exports = {
   name: 'info',
   args: false,
+  usage: '',
   execute(msg, args, client) {
     let avatar = client.user.displayAvatarURL();
     let embed =  {
