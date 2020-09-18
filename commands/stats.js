@@ -15,14 +15,8 @@ module.exports = {
     let axiosVersion = `v` + axiosVersionRaw.slice(1);
     let expressVersion = `v`+ expressVersionRaw.slice(1);
     let sysInfoVersion = `v` + sysInfoVersionRaw.slice(1);
-
-    console.log(discordjsVersion)
-    console.log(axiosVersion)
-    console.log(expressVersion)
-    console.log(sysInfoVersion)
-
     let totalMemory;
-    let freeMemory;
+    let usingMemory;
 
     async function memory() {
       let response;
@@ -32,13 +26,9 @@ module.exports = {
       .catch(error => console.error(error));
 
       totalMemory = Math.floor(response.total / 1000000)
-      freeMemory = Math.floor(response.free / 1000000)
-      console.log(`Using ${freeMemory}MB out of ${totalMemory}MB`)
-    }
+      usingMemory = Math.floor(response.active / 1000000)
 
-    command()
-
-    let embed =  {
+      let embed =  {
         color: 0x9900ff,
         fields: [
           {
@@ -57,7 +47,7 @@ module.exports = {
           },
           {
             name: `System`,
-            value: `Te`
+            value: `Memory: **Using ${usingMemory}MB out of ${totalMemory}MB**`
           }
         ],
         author: {
@@ -67,5 +57,10 @@ module.exports = {
     }
 
     msg.channel.send({embed : embed})
+    }
+
+    memory()
+
+    
   }
 }
