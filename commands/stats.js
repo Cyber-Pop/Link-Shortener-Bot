@@ -7,13 +7,44 @@ module.exports = {
     let discordjs = require('discord.js')
     let embed =  {
         color: 0x9900ff,
-        description: `
-        **Current Version:** 2.0
-        **Node Version:** ${process.version}
-        **Discord.js:** ${discordjs.version}
-        **Servers:** ${client.guilds.cache.size}
-        **Channels:** ${client.channels.cache.size}
-        **Users:** ${client.users.cache.size}`,
+        fields: [
+          {
+            name: `Current Version`,
+            value: `2.0`,
+            inline: true
+            
+          },
+          {
+            name: `Nodejs Version`,
+            value: `${process.version}`,
+            inline: true
+            
+          },
+          {
+            name: `Discord.js Version`,
+            value: `v${discordjs.version}`,
+            inline: true
+            
+          },
+          {
+            name: `Servers`,
+            value: `${client.guilds.cache.size}`,
+            inline: true
+            
+          },
+          {
+            name: `Channels`,
+            value: `${client.channels.cache.size}`,
+            inline: true
+            
+          },
+          {
+            name: `Users`,
+            value: `${client.users.cache.size}`,
+            inline: true
+            
+          }
+        ],
         author: {
 		    name: `Stats`,
 		    icon_url: avatar
