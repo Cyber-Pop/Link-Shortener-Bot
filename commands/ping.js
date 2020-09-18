@@ -3,6 +3,6 @@ module.exports = {
   args: false,
   usage: '',
   execute(msg, args, client) {
-    msg.channel.send(`Ping!`)
+    msg.channel.send(`Pong!`)
   }
 }
