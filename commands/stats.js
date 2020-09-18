@@ -4,45 +4,60 @@ module.exports = {
   usage: '',
   execute(msg, args, client) {
     let avatar = client.user.displayAvatarURL();
-    let discordjs = require('discord.js')
+    const dependencies = require('../package.json');
+    const sysInfo = require('systeminformation')
+    let discordjsVersionRaw = dependencies["dependencies"]["discord.js"];
+    let axiosVersionRaw = dependencies.dependencies.axios;
+    let expressVersionRaw = dependencies.dependencies.express;
+    let sysInfoVersionRaw = dependencies.dependencies.systeminformation;
+    // Slices the previous variable to get rid of the
+    let discordjsVersion = `v` + discordjsVersionRaw.slice(1);
+    let axiosVersion = `v` + axiosVersionRaw.slice(1);
+    let expressVersion = `v`+ expressVersionRaw.slice(1);
+    let sysInfoVersion = `v` + sysInfoVersionRaw.slice(1);
+
+    console.log(discordjsVersion)
+    console.log(axiosVersion)
+    console.log(expressVersion)
+    console.log(sysInfoVersion)
+
+    let totalMemory;
+    let freeMemory;
+
+    async function memory() {
+      let response;
+
+      await sysInfo.mem()
+      .then(data => response = data)
+      .catch(error => console.error(error));
+
+      totalMemory = Math.floor(response.total / 1000000)
+      freeMemory = Math.floor(response.free / 1000000)
+      console.log(`Using ${freeMemory}MB out of ${totalMemory}MB`)
+    }
+
+    command()
+
     let embed =  {
         color: 0x9900ff,
         fields: [
           {
-            name: `Current Version`,
-            value: `2.0`,
-            inline: true
-            
+            name: `Bot Stats`,
+            value: `Servers: **${client.guilds.cache.size}**
+                    Channels: **${client.channels.cache.size}**
+                    Users: **${client.users.cache.size}**`
           },
           {
-            name: `Nodejs Version`,
-            value: `${process.version}`,
-            inline: true
-            
+            name: `Utilities`,
+            value: `Nodejs: **${process.version}**
+                    Discord.js: **${discordjsVersion}**
+                    Axios: **${axiosVersion}**
+                    Express: **${expressVersion}**
+                    System Information: **${sysInfoVersion}**`
           },
           {
-            name: `Discord.js Version`,
-            value: `v${discordjs.version}`,
-            inline: true
-            
-          },
-          {
-            name: `Servers`,
-            value: `${client.guilds.cache.size}`,
-            inline: true
-            
-          },
-          {
-            name: `Channels`,
-            value: `${client.channels.cache.size}`,
-            inline: true
-            
-          },
-          {
-            name: `Users`,
-            value: `${client.users.cache.size}`,
-            inline: true
-            
+            name: `System`,
+            value: `Te`
           }
         ],
         author: {
