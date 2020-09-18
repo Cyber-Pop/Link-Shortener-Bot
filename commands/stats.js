@@ -7,8 +7,7 @@ module.exports = {
     let embed =  {
         color: 0x9900ff,
         description: `**Current Version:** 2.0 
-        **Servers:** ${client.guilds.cache.size}
-        **Uptime:** ${client.uptime * 1000}`,
+        **Servers:** ${client.guilds.cache.size}`,
         author: {
 		    name: `Stats`,
 		    icon_url: avatar
