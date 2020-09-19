@@ -20,13 +20,15 @@ module.exports = {
 
     async function memory() {
       let response;
+      let percenteage;
 
       await sysInfo.mem()
       .then(data => response = data)
       .catch(error => console.error(error));
 
-      totalMemory = Math.floor(response.total / 1000000)
       usingMemory = Math.floor(response.active / 1000000)
+      totalMemory = Math.floor(response.total / 1000000)
+      percentage = Math.floor(usingMemory/totalMemory * 100)
 
       let embed =  {
         color: 0x9900ff,
@@ -47,7 +49,7 @@ module.exports = {
           },
           {
             name: `System`,
-            value: `Memory: **Using ${usingMemory}MB out of ${totalMemory}MB**`
+            value: `Memory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`
           }
         ],
         author: {
