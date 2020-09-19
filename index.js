@@ -9,13 +9,19 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// Makes a new collection with all the files in /commands
+
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+// Loops through the commands then requires them and adds them to the collection
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
+
+// Starts a express server to be able to receive pings and stay online
 
 app.get('/', (req, res) => {
   res.send(`Hello`)
@@ -26,6 +32,8 @@ app.listen(port, () => {
   console.log(`Express running`)
 })
 
+// Fires once the bot is ready and logs it to the console then sets it status
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
@@ -34,9 +42,12 @@ client.on('ready', () => {
     .catch(console.error);
 });
 
-client.on('message', msg => {
-  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+// Fires when a new messge is received
 
+client.on('message', msg => {
+  // If the command doesn't start with the prefix or is sent by a bot return
+  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
