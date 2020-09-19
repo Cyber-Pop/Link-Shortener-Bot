@@ -15,20 +15,36 @@ module.exports = {
     let axiosVersion = `v` + axiosVersionRaw.slice(1);
     let expressVersion = `v`+ expressVersionRaw.slice(1);
     let sysInfoVersion = `v` + sysInfoVersionRaw.slice(1);
+    let os;
+    let cpuLoad;
     let totalMemory;
     let usingMemory;
 
     async function memory() {
-      let response;
+      let osResponse;
+      let cpuResponse
+      let memResponse;
       let percenteage;
 
       await sysInfo.mem()
-      .then(data => response = data)
+      .then(data => memResponse = data)
       .catch(error => console.error(error));
 
-      usingMemory = Math.floor(response.active / 1000000)
-      totalMemory = Math.floor(response.total / 1000000)
-      percentage = Math.floor(usingMemory/totalMemory * 100)
+      usingMemory = Math.round(memResponse.active / 1000000)
+      totalMemory = Math.round(memResponse.total / 1000000)
+      percentage = Math.round(usingMemory/totalMemory * 100)
+
+      await sysInfo.osInfo()
+      .then(data => osResponse = data)
+      .catch(error => console.log(error))
+
+      await sysInfo.currentLoad()
+      .then(data => cpuResponse = data)
+      .catch(error => console.log(error))
+
+      cpuLoad = Math.round(cpuResponse.currentload)
+
+      os = osResponse.distro
 
       let embed =  {
         color: 0x9900ff,
@@ -49,7 +65,9 @@ module.exports = {
           },
           {
             name: `System`,
-            value: `Memory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`
+            value: `OS: **${os}**
+                    CPU: **${cpuLoad}%**
+                    Memory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`
           }
         ],
         author: {
