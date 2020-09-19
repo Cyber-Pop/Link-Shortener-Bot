@@ -7,7 +7,7 @@ module.exports = {
     let avatar = client.user.displayAvatarURL();
     let embed = {
       color: 0x9900ff,
-      title: `Version 2.0`,
+      title: `Version 3.0`,
       description: `• Added a !stats command
       
                     That's it folks stay tuned for the next update`, 
