@@ -2,6 +2,8 @@ module.exports = {
   name: 'vgd',
   args: true,
   usage: '[link]',
+  cooldown: 3,
+  guildOnly: false,
   execute(msg, args, client) {
     const axios = require('axios');
     const strings = require('../strings.json')

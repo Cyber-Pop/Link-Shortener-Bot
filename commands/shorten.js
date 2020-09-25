@@ -2,6 +2,8 @@ module.exports = {
   name: 'shorten',
   args: true,
   usage: '[link]',
+  cooldown: 3,
+  guildOnly: false,
   execute(msg, args, client) {
     const axios = require('axios');
     const strings = require('../strings.json')
@@ -23,6 +25,7 @@ module.exports = {
             }
 
             msg.channel.send({embed : embed})
+            msg.react('✅')
         })
         .catch(function (error) {
           // handle error

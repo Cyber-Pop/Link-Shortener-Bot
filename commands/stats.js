@@ -1,7 +1,8 @@
 module.exports = {
   name: 'stats',
   args: false,
-  usage: '',
+  cooldown: 3,
+  guildOnly: false,
   execute(msg, args, client) {
     let avatar = client.user.displayAvatarURL();
     const dependencies = require('../package.json');

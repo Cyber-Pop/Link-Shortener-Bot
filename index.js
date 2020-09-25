@@ -58,17 +58,24 @@ client.on('message', msg => {
   const command = client.commands.get(commandName)
 
   if (command.args && !args.length) {
+    let usage;
+    if (!command.usage) {
+      usage = ''
+    }
     let embed =  {
         color: 0xff0000,
         title: `Missing Arguments`,
-        description: `The correct usage is \`${prefix}${command.name} ${command.usage}\``,
+        description: `The correct usage is \`${prefix}${command.name} ${usage}\``,
         author: {
 		    name: `Error`,
 		    icon_url: client.user.displayAvatarURL()
       }
     }
-
     return msg.channel.send({embed : embed})
+  }
+
+  if (command.guildOnly && !msg.guild) {
+    return msg.channel.send(`This command can only be used in a server`)
   }
 
   try {

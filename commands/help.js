@@ -1,7 +1,8 @@
 module.exports = {
   name: 'help',
   args: false,
-  usage: '',
+  cooldown: 3,
+  guildOnly: false,
   execute(msg, arg, client) {
     const config = require('../config.json');
     const prefix = config.prefix;

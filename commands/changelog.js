@@ -1,7 +1,8 @@
 module.exports = {
   name: 'changelog',
   args: false,
-  usage: '',
+  cooldown: 3,
+  guildOnly: false,
   execute(msg, args, client) {
     const config = require('../config.json');
     let avatar = client.user.displayAvatarURL();

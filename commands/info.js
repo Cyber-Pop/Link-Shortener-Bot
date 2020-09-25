@@ -1,7 +1,8 @@
 module.exports = {
   name: 'info',
   args: false,
-  usage: '',
+  cooldown: 3,
+  guildOnly: false,
   execute(msg, args, client) {
     let avatar = client.user.displayAvatarURL();
     let embed =  {
