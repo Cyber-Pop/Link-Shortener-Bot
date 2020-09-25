@@ -4,7 +4,10 @@ module.exports = {
   cooldown: 3,
   guildOnly: true,
   execute(msg, args, client) {
-    //msg.guild.role
-    msg.channel.send(msg.guild.name)
+    async function command() {
+      let role = msg.guild.roles.cache.find(role => console.log(role.name));
+    }
+
+    command()
   }
 }

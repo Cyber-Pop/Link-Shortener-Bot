@@ -58,14 +58,16 @@ client.on('message', msg => {
   const command = client.commands.get(commandName)
 
   if (command.args && !args.length) {
-    let usage;
-    if (!command.usage) {
-      usage = ''
+    let message =  `You are missing some required arguments.`;
+
+    if (command.usage) {
+      message += ` The correct usage is \`${prefix}${command.name} ${command.usage}\``
     }
+
     let embed =  {
         color: 0xff0000,
         title: `Missing Arguments`,
-        description: `The correct usage is \`${prefix}${command.name} ${usage}\``,
+        description: message,
         author: {
 		    name: `Error`,
 		    icon_url: client.user.displayAvatarURL()
@@ -76,6 +78,8 @@ client.on('message', msg => {
 
   if (command.guildOnly && !msg.guild) {
     return msg.channel.send(`This command can only be used in a server`)
+  } else if (!msg.guild.available) {
+    return msg.channel.send(`This server is currently unavailable. This may be a result of a Discord issue. Check https://discordstatus.com for Discord Status information`)
   }
 
   try {
