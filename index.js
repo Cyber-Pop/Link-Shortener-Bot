@@ -58,8 +58,6 @@ client.on('message', msg => {
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
-  console.log(args)
-
   if (!client.commands.has(commandName)) return;
 
   const command = client.commands.get(commandName)
