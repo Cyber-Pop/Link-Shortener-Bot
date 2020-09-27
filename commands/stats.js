@@ -3,7 +3,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   guildOnly: false,
-  execute(msg, args, client) {
+  execute(msg, args, client, strings) {
     let avatar = client.user.displayAvatarURL();
     const dependencies = require('../package.json');
     const sysInfo = require('systeminformation')
@@ -21,7 +21,7 @@ module.exports = {
     let totalMemory;
     let usingMemory;
 
-    async function memory() {
+    async function stats() {
       let osResponse;
       let cpuResponse
       let memResponse;
@@ -48,7 +48,7 @@ module.exports = {
       os = osResponse.distro
 
       let embed =  {
-        color: 0x9900ff,
+        color: strings.mainColor,
         fields: [
           {
             name: `Bot Stats`,
@@ -80,7 +80,7 @@ module.exports = {
     msg.channel.send({embed : embed})
     }
 
-    memory()
+    stats()
 
     
   }

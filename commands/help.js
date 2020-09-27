@@ -3,13 +3,13 @@ module.exports = {
   args: false,
   cooldown: 3,
   guildOnly: false,
-  execute(msg, arg, client) {
+  execute(msg, arg, client, strings) {
     const config = require('../config.json');
     const prefix = config.prefix;
 
     let avatar = client.user.displayAvatarURL();
     let embed = {
-      color: 0x9900ff,
+      color: strings.mainColor,
       title: `Commands`,
       description: `List of available commands:\n\n**${prefix}help:** You're viewing it right now
       **${prefix}info:** Shows info about the bot

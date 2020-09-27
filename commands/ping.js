@@ -3,7 +3,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   guildOnly: false,
-  execute(msg, args, client) {
+  execute(msg, args, client, strings) {
     async function ping() {
       const m = await msg.channel.send("Ping?");
 

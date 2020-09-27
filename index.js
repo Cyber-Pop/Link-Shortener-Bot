@@ -4,6 +4,7 @@ const client = new Discord.Client();
 const config = require('./config.json');
 const prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
+const strings = require('./strings.json')
 const axios = require('axios');
 const express = require('express')
 const app = express()
@@ -45,9 +46,15 @@ client.on('ready', () => {
 // Fires when a new messge is received
 
 client.on('message', msg => {
+  if (msg.mentions.has(client.user.id)) {
+    if (msg.author.bot) return;
+    msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${prefix}\``)
+  }
+
   // If the command doesn't start with the prefix or is sent by a bot return
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
+
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
@@ -58,18 +65,18 @@ client.on('message', msg => {
   const command = client.commands.get(commandName)
 
   if (command.args && !args.length) {
-    let message =  `You are missing some required arguments.`;
+    let message =  strings.argsMissingDescription;
 
     if (command.usage) {
       message += ` The correct usage is \`${prefix}${command.name} ${command.usage}\``
     }
 
     let embed =  {
-        color: 0xff0000,
-        title: `Missing Arguments`,
+        color: strings.errorColor,
+        title: strings.argsMissingTitle,
         description: message,
         author: {
-		    name: `Error`,
+		    name: strings.argsMissingName,
 		    icon_url: client.user.displayAvatarURL()
       }
     }
@@ -77,16 +84,16 @@ client.on('message', msg => {
   }
 
   if (command.guildOnly && !msg.guild) {
-    return msg.channel.send(`This command can only be used in a server`)
+    return msg.channel.send(strings.guildOnly)
   } else if (!msg.guild.available) {
-    return msg.channel.send(`This server is currently unavailable. This may be a result of a Discord issue. Check https://discordstatus.com for Discord Status information`)
+    return msg.channel.send(strings.guildOnly)
   }
 
   try {
-    command.execute(msg, args, client);
+    command.execute(msg, args, client, strings);
   } catch (error) {
     console.error(error);
-    msg.reply('An error occured while running your command');
+    msg.reply(strings.runCommandError);
   };
 
 })

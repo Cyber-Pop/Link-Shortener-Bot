@@ -3,10 +3,10 @@ module.exports = {
   args: false,
   cooldown: 3,
   guildOnly: false,
-  execute(msg, args, client) {
+  execute(msg, args, client, strings) {
     let avatar = client.user.displayAvatarURL();
     let embed =  {
-        color: 0x9900ff,
+        color: strings.mainColor,
         title: `About Me`,
         description: `I started off as a side project meant to put my owners skills to the test in combining various things that I learned throughout my coding journer. I'm the first bot that my owner made to actually be published. This means that support will probably be nonexistent and downtime might happen more often than expected`,
         fields: [
