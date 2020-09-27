@@ -2,9 +2,10 @@ module.exports = {
   name: 'vgd',
   args: true,
   usage: '[link]',
-  execute(msg, args, client) {
+  cooldown: 3,
+  guildOnly: false,
+  execute(msg, args, client, strings) {
     const axios = require('axios');
-    const strings = require('../strings.json')
     let avatar = client.user.displayAvatarURL();
 
         let link = encodeURIComponent(args[0], msg)
@@ -13,7 +14,7 @@ module.exports = {
         .then(function (response) {
             // handle success
             let embed =  {
-              color: 0x00ff00,
+              color: strings.mainColor,
               title: `Link`,
               description: `[${response.data}](${response.data})`,
               author: {
@@ -30,9 +31,9 @@ module.exports = {
           // Used to get error type and log it to the console while in development
           //console.log(error.response.data)
 
-          if (error.response.data === strings.isgdInvalid) {
+          if (error.response.data === strings.vgdInvalid) {
             let embed =  {
-                color: 0xff0000,
+                color: strings.errorColor,
                 title: `Invalid URL`,
                 description: `Please try again with a valid URL`,
                 author: {
@@ -43,9 +44,9 @@ module.exports = {
 
           msg.channel.send({embed : embed})
 
-          } else if (error.response.data === strings.isgdBlacklisted) {
+          } else if (error.response.data === strings.vgdBlacklisted) {
             let embed =  {
-              color: 0xff0000,
+              color: strings.errorColor,
               title: `Blacklisted URL`,
               description: `This URL has been blacklisted. This can happen when it has been abused in the past or leads to URL shortner`,
               author: {
