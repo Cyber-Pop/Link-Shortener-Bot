@@ -8,8 +8,9 @@ module.exports = {
     let avatar = client.user.displayAvatarURL();
     let embed = {
       color: strings.mainColor,
-      title: `Version 3.0`,
-      description: `• Added a !stats command
+      title: `Version ` + strings.botVersion,
+      description: `• Made some embed colors match the bot's icon
+                    • Moved some of the success/error messages to a sepereate file to make changing easier
       
                     That's it folks stay tuned for the next update`, 
       author: { 
