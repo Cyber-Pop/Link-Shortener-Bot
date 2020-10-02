@@ -4,7 +4,6 @@ module.exports = {
   cooldown: 3,
   guildOnly: false,
   execute(msg, args, client, strings) {
-    const config = require('../config.json');
     let avatar = client.user.displayAvatarURL();
     let embed = {
       color: strings.mainColor,
