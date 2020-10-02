@@ -1,6 +1,6 @@
 {
   "prefix": ".",
-  "devMode": true,
+  "devMode": false,
   "port": 3000,
   "mainColor": "0x2ECC71",
   "errorColor": "0xff0000",
