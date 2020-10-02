@@ -1,6 +1,7 @@
 {
   "prefix": ".",
   "devMode": true,
+  "port": 3000,
   "mainColor": "0x2ECC71",
   "errorColor": "0xff0000",
   "botVersion": "4.0",
