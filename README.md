@@ -1,2 +1,6 @@
-## Welcome!
-Welcome to the official repository of Link Shortner Bot. The crappiest bot around. Pull requests are welcome ~~so you can fix my s*** code~~. You can self host but there are no official instructions. To invite the official bot click [here](https://discord.com/api/oauth2/authorize?client_id=755474829364428840&permissions=84032&scope=bot).
+## Status
+[![](https://disbots.gg/api/widget/755474829364428840/stats)]()
+## About
+Link Shortener is a open source Discord Bot which uses various api's to shorten links. Current supported shorteners include [is.gd](https://is.gd) and [v.gd](https://v.gd). There are plans to add more in the future.
+## Self Hosting
+To do
