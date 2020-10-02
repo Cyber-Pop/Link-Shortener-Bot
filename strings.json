@@ -1,5 +1,5 @@
 {
-  "prefix": ".",
+  "prefix": ">",
   "devMode": false,
   "port": 3000,
   "mainColor": "0x2ECC71",
