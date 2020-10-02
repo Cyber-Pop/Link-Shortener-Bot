@@ -8,10 +8,7 @@ module.exports = {
     let embed = {
       color: strings.mainColor,
       title: `Version ` + strings.botVersion,
-      description: `• Made some embed colors match the bot's icon
-                    • Moved some of the success/error messages to a sepereate file to make changing easier
-      
-                    That's it folks stay tuned for the next update`, 
+      description: `Improved things on the Gihub repo (run ${prefix}info to get a link)`, 
       author: { 
         name: `Changelog`, 
         icon_url: avatar

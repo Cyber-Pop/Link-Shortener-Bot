@@ -4,7 +4,7 @@
   "port": 3000,
   "mainColor": "0x2ECC71",
   "errorColor": "0xff0000",
-  "botVersion": "4.0",
+  "botVersion": "5.0",
   "isgdInvalid": "Error: Please enter a valid URL to shorten",
   "isgdBlacklisted": "Error: Sorry, the URL you entered is on our internal blacklist. It may have been used abusively in the past, or it may link to another URL redirection service.",
   "vgdInvalid": "Error: Please enter a valid URL to shorten",
