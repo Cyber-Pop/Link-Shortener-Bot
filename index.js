@@ -1,14 +1,10 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const config = require('./config.json');
-const prefix = config.prefix;
-const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const strings = require('./strings.json')
+const prefix = strings.prefix;
+const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
-const express = require('express')
-const app = express()
-const port = 3000
 
 // Makes a new collection with all the files in /commands
 
@@ -22,7 +18,13 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-// Starts a express server to be able to receive pings and stay online
+// Starts a express server to be able to receive pings and stay online. If you are self hosting and don't need the pinging comment out the code. There are comments marking the start and end
+
+// Start pinging code
+
+const express = require('express')
+const app = express()
+const port = 3000
 
 app.get('/', (req, res) => {
   res.send(`Hello`)
@@ -32,6 +34,8 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Express running`)
 })
+
+// End Pinging Code
 
 // Fires once the bot is ready and logs it to the console then sets it status
 
@@ -57,6 +61,10 @@ client.on('message', msg => {
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
+
+  if (strings.devMode) {
+    console.log(args)
+  }
 
   if (!client.commands.has(commandName)) return;
 
