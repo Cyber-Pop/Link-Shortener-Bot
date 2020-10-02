@@ -4,15 +4,11 @@ module.exports = {
   cooldown: 3,
   guildOnly: false,
   execute(msg, args, client, strings) {
-    const config = require('../config.json');
     let avatar = client.user.displayAvatarURL();
     let embed = {
       color: strings.mainColor,
       title: `Version ` + strings.botVersion,
-      description: `• Made some embed colors match the bot's icon
-                    • Moved some of the success/error messages to a sepereate file to make changing easier
-      
-                    That's it folks stay tuned for the next update`, 
+      description: `Improved things on the Gihub repo (run ${strings.prefix}info to get a link)`, 
       author: { 
         name: `Changelog`, 
         icon_url: avatar

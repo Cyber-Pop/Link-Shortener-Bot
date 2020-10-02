@@ -24,6 +24,7 @@ module.exports = {
             }
 
             msg.channel.send({embed : embed})
+            msg.react('✅')
         })
         .catch(function (error) {
           // handle error
