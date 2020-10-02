@@ -4,8 +4,7 @@ module.exports = {
   cooldown: 3,
   guildOnly: false,
   execute(msg, arg, client, strings) {
-    const config = require('../config.json');
-    const prefix = config.prefix;
+    const prefix = strings.prefix;
 
     let avatar = client.user.displayAvatarURL();
     let embed = {
