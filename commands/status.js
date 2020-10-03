@@ -7,7 +7,7 @@ module.exports = {
   execute(msg, args, client, strings) {
     const joined = args.join('')
     const split = joined.trim().split('|')
-    // NOT DONE NEED TO CHECK IF ARGUMENTS REQUIRE FOR VAR
+    // NOT DONE NEED TO CHECK IF ARGUMENTS REQUIRE FOR VARIABLES ARE EMPHTY
     const name = split[0]
     console.log(split)
 
