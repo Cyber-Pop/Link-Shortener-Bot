@@ -10,7 +10,7 @@ module.exports = {
     try {
       const code = args.join(' ')
       eval(code)
-      
+      msg.react('✅')
     } catch (e) {
         let embed = {
           color: strings.errorColor,
