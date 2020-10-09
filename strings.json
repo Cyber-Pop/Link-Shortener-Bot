@@ -1,7 +1,7 @@
 {
   "ownerID": "738966191519039640",
   "prefix": ".",
-  "devMode": false,
+  "devMode": true,
   "port": 3000,
   "mainColor": "0x2ECC71",
   "errorColor": "0xff0000",
