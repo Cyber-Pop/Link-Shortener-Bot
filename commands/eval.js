@@ -6,40 +6,48 @@ module.exports = {
   execute(msg, args, client, strings) {
     console.log(`Executed eval by ${msg.author.username}`)
     let avatar = client.user.displayAvatarURL();
-
-    try {
-      const code = args.join(' ')
-      if (strings.devMode) {
-        console.log(code)
-      }
-
-      async function run() {
-        let returned = ``
-        returned += await eval(code);
-        let embed = {
-          color: strings.mainColor,
-          description: `This is what the code returned:\n${returned}`,
-          author: {
-            name: `Executed`,
-            icon_url: avatar
+    let code = args.join(' ')
+    let returned = ``
+    let success;
+    let embed = {
+        color: strings.mainColor,
+        fields: [
+          {
+            "name": "Original Code",
+            "value":`\`${code}\``
+          },
+          {
+            "name": "Result",
+            "value": ""
           }
-        }
-
-        msg.channel.send({embed: embed})
-      }
-      run()
-      msg.react('✅')
-    } catch (e) {
-      let embed = {
-        color: strings.errorColor,
-        description: `There was an error while running the code. The error has been included below\n \`\`\`${e}\`\`\`\   `,
+        ],
         author: {
-          name: `Error`,
+          name: ``,
           icon_url: avatar
         }
       }
 
-      msg.channel.send({ embed: embed })
+      console.log(embed.fields[1].value)
+
+    if (strings.devMode) {
+        console.log(code)
     }
+
+  async function run() {
+    try {
+      returned += await eval(code);
+      embed.fields[1].value = `\`${returned}\``
+      embed.author.name = strings.evalSuccess
+      msg.react(strings.successEmoji)
+    } catch (e) {
+      embed.fields[1].value = `\`${e}\``
+      embed.author.name = strings.evalSuccess
+      embed.color = strings.errorColor
+      msg.react(strings.errorEmoji)
+    }
+      msg.channel.send({ embed: embed })
+  }
+
+    run()
   }
 }

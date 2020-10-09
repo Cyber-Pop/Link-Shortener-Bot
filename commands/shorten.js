@@ -24,7 +24,7 @@ module.exports = {
             }
 
             msg.channel.send({embed : embed})
-            msg.react('✅')
+            msg.react(string.successEmoji)
         })
         .catch(function (error) {
           // handle error
@@ -55,7 +55,7 @@ module.exports = {
 		            icon_url: avatar
               }
             }
-
+            msg.react(strings.errorEmoji)
             msg.channel.send({embed : embed})
         }
       })
