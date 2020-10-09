@@ -2,7 +2,7 @@ module.exports = {
   name: 'status',
   ownerOnly: true,
   cooldown: 3,
-  guildOnly: false,
+  usage: '<name> <activity>',
   execute(msg, args, client, strings) {
     const joined = args.join('')
     const split = joined.trim().split('|')

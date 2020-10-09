@@ -3,7 +3,6 @@ module.exports = {
   args: true,
   usage: '[link]',
   cooldown: 3,
-  guildOnly: false,
   execute(msg, args, client, strings) {
     const axios = require('axios');
     let avatar = client.user.displayAvatarURL();

@@ -2,7 +2,6 @@ module.exports = {
   name: 'stats',
   args: false,
   cooldown: 3,
-  guildOnly: false,
   execute(msg, args, client, strings) {
     let avatar = client.user.displayAvatarURL();
     const dependencies = require('../package.json');
@@ -52,23 +51,15 @@ module.exports = {
         fields: [
           {
             name: `Bot Stats`,
-            value: `Servers: **${client.guilds.cache.size}**
-                    Channels: **${client.channels.cache.size}**
-                    Users: **${client.users.cache.size}**`
+            value: `Servers: **${client.guilds.cache.size}\n**Channels: **${client.channels.cache.size}**\nUsers: **${client.users.cache.size}**`
           },
           {
             name: `Utilities`,
-            value: `Nodejs: **${process.version}**
-                    Discord.js: **${discordjsVersion}**
-                    Axios: **${axiosVersion}**
-                    Express: **${expressVersion}**
-                    System Information: **${sysInfoVersion}**`
+            value: `Nodejs: **${process.version}**\nDiscord.js: **${discordjsVersion}**\nAxios: **${axiosVersion}**\nExpress: **${expressVersion}**\nSystem Information: **${sysInfoVersion}**`
           },
           {
             name: `System`,
-            value: `OS: **${os}**
-                    CPU: **${cpuLoad}%**
-                    Memory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`
+            value: `OS: **${os}**\nCPU: **${cpuLoad}%**\nMemory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`
           }
         ],
         author: {

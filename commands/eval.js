@@ -2,7 +2,8 @@ module.exports = {
   ownerOnly: true,
   name: 'eval',
   cooldown: 3,
-  args: false,
+  args: true,
+  usage: '<code>',
   execute(msg, args, client, strings) {
     console.log(`Executed eval by ${msg.author.username}`)
     let avatar = client.user.displayAvatarURL();
