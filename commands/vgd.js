@@ -3,7 +3,6 @@ module.exports = {
   args: true,
   usage: '[link]',
   cooldown: 3,
-  guildOnly: false,
   execute(msg, args, client, strings) {
     const axios = require('axios');
     let avatar = client.user.displayAvatarURL();
@@ -24,7 +23,7 @@ module.exports = {
             }
 
             msg.channel.send({embed : embed})
-            msg.react('✅')
+            msg.react(strings.successEmoji)
         })
         .catch(function (error) {
           // handle error
@@ -55,7 +54,7 @@ module.exports = {
 		            icon_url: avatar
               }
             }
-
+            msg.react(strings.errorEmoji)
             msg.channel.send({embed : embed})
         }
       })

@@ -71,22 +71,27 @@ client.on('message', msg => {
   const command = client.commands.get(commandName)
 
   if (command.args && !args.length) {
-    let message =  strings.argsMissingDescription;
+    let message = strings.argsMissingDescription;
 
     if (command.usage) {
       message += ` The correct usage is \`${prefix}${command.name} ${command.usage}\``
     }
 
-    let embed =  {
-        color: strings.errorColor,
-        title: strings.argsMissingTitle,
-        description: message,
-        author: {
-		    name: strings.argsMissingName,
-		    icon_url: client.user.displayAvatarURL()
+    let embed = {
+      color: strings.errorColor,
+      title: strings.argsMissingTitle,
+      description: message,
+      author: {
+        name: strings.argsMissingName,
+        icon_url: client.user.displayAvatarURL()
       }
     }
-    return msg.channel.send({embed : embed})
+    return msg.channel.send({ embed: embed })
+  }
+
+
+  if (command.ownerOnly && msg.author.id !== strings.ownerID) {
+    return msg.channel.send(`This command is owner only!`)
   }
 
   if (command.guildOnly && !msg.guild) {

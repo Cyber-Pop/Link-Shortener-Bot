@@ -2,7 +2,6 @@ module.exports = {
   name: 'info',
   args: false,
   cooldown: 3,
-  guildOnly: false,
   execute(msg, args, client, strings) {
     let avatar = client.user.displayAvatarURL();
     let embed =  {
@@ -12,7 +11,7 @@ module.exports = {
         fields: [
           {
 		    	  name: 'Code',
-			      value: 'The code of the bot is open source. This mean you can host it yourself it I the owner breaks the main version (99% chace that he will). Just beware it is a a f\\*\\*\\*\\*\\*\\* mess. Click [here](https://github.com/TheLimifiedLime/Link-Shortner-Bot) to see the code. And remember you have been warned',
+			      value: 'The code of the bot is open source. This mean you can host it yourself it. Click [here](https://github.com/TheLimifiedLime/Link-Shortner-Bot) to see the code.',
 		      }
         ],
         author: {
