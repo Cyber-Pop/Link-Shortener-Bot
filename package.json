@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@keyv/sqlite": "^2.0.2",
     "axios": "^0.20.0",
     "config.json": "0.0.4",
     "discord.js": "^12.3.1",

@@ -5,8 +5,8 @@ const strings = require('./strings.json')
 const prefix = strings.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
-const keyv = require('keyv')
-let dbs;
+const Keyv = require('keyv')
+const prefixes = new Keyv('sqlite://databases/prefixes.sqlite');
 
 // Makes a new collection with all the files in /commands
 
