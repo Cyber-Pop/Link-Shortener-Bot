@@ -54,6 +54,17 @@ client.on('ready', () => {
 // Fires when a new messge is received
 
 client.on('message', msg => {
+  async function getPrefix() {
+    let data = await prefixes.get(msg.guild.id)
+    if (!data) {
+      console.log(`undefindejfief`)
+    } else {
+      console.log(`wut prefix found?`)
+    }
+  }
+
+  getPrefix()
+
   if (msg.mentions.has(client.user.id)) {
     if (msg.author.bot) return;
     msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${prefix}\``)
@@ -105,7 +116,7 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args, client, strings);
+    command.execute(msg, args, client, strings, prefixes);
   } catch (error) {
     console.error(error);
     msg.reply(strings.runCommandError);
