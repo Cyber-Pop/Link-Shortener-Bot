@@ -24,18 +24,20 @@ for (const file of commandFiles) {
 
 // Start pinging code
 
-const express = require('express')
-const app = express()
-const port = strings.port
+if (strings.pingRequired) {
+  const express = require('express')
+  const app = express()
+  const port = strings.port
 
-app.get('/', (req, res) => {
-  res.send(`Hello`)
-  console.log(`Pinged!`)
-})
+  app.get('/', (req, res) => {
+    res.send(`Hello`)
+    console.log(`Pinged!`)
+  })
 
-app.listen(port, () => {
-  console.log(`Express running`)
-})
+  app.listen(port, () => {
+    console.log(`Express running`)
+  })
+}
 
 // End Pinging Code
 
