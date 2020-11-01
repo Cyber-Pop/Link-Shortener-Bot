@@ -36,7 +36,11 @@ module.exports = {
 
   async function run() {
     try {
-      returned += await eval(code);
+      if (code === `client.token`) {
+        returned += `Nice Try`
+      } else {
+        returned += await eval(code);
+      }
       embed.fields[1].value = `\`${returned}\``
       embed.author.name = strings.evalSuccess
       msg.react(strings.successEmoji)

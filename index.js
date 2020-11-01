@@ -1,12 +1,15 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const strings = require('./strings.json')
-const prefix = strings.prefix;
+const strings = require('./strings.json');
+let prefix = strings.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
-const Keyv = require('keyv')
-const prefixes = new Keyv('sqlite://databases/prefixes.sqlite');
+const { MongoClient } = require('mongodb');
+const dbURL = process.env.URL;
+const dbClient = new MongoClient(dbURL, {useUnifiedTopology: true});
+let database;
+let guilds;
 
 // Makes a new collection with all the files in /commands
 
@@ -41,6 +44,19 @@ if (strings.pingRequired) {
 
 // End Pinging Code
 
+async function dbSetup() {
+  try {
+    await dbClient.connect()
+    database = dbClient.db('databases');
+    guids = database.collection('guilds');
+  } catch (e) {
+    console.log(e)
+  } finally {
+    dbClient.close()
+  }
+}
+dbSetup()
+
 // Fires once the bot is ready and logs it to the console then sets it status
 
 client.on('ready', () => {
@@ -54,27 +70,19 @@ client.on('ready', () => {
 // Fires when a new messge is received
 
 client.on('message', msg => {
-  async function getPrefix() {
-    let data = await prefixes.get(msg.guild.id)
-    if (!data) {
-      console.log(`undefindejfief`)
-    } else {
-      console.log(`wut prefix found?`)
-    }
-  }
 
-  getPrefix()
+
 
   if (msg.mentions.has(client.user.id)) {
     if (msg.author.bot) return;
-    msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${prefix}\``)
+    msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${guildPrefix}\``)
   }
 
   // If the command doesn't start with the prefix or is sent by a bot return
-  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  if (!msg.content.startsWith(guildPrefix) || msg.author.bot) return;
   // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
 
-  const args = msg.content.slice(prefix.length).trim().split(/ +/);
+  const args = msg.content.slice(guildPrefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
   if (strings.devMode) {
