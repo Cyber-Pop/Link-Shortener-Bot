@@ -7,7 +7,7 @@ const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status:
 const axios = require('axios');
 const { MongoClient } = require('mongodb');
 const dbURL = process.env.URL;
-const dbClient = new MongoClient(dbURL, {useUnifiedTopology: true});
+const dbClient = new MongoClient(dbURL, { useUnifiedTopology: true });
 let database;
 let guilds;
 
@@ -45,16 +45,9 @@ if (strings.pingRequired) {
 // End Pinging Code
 
 async function dbSetup() {
-  try {
-    await dbClient.connect()
-    database = dbClient.db('databases');
-    guids = database.collection('guilds');
-  } catch (e) {
-    console.log(e)
-  } finally {
-    dbClient.close()
-  }
+  await dbClient.connect()
 }
+
 dbSetup()
 
 // Fires once the bot is ready and logs it to the console then sets it status
@@ -70,8 +63,31 @@ client.on('ready', () => {
 // Fires when a new messge is received
 
 client.on('message', msg => {
+  let guildPrefix;
 
+  if (!msg.guild) {
+    guildPrefix = prefix;
+  } else {
+    async function run() {
+      try {
+        database = await dbClient.db('databases');
+        guilds = await database.collection('guilds');
+        let query = {
+          guildID: msg.guild.id
+        }
+        let result = await guilds.findOne(query)
+        console.log(result)
+      } catch (e) {
+        console.log(e)
+      }
+    } 
 
+    run()
+  }
+
+  async function getPrefix() {
+
+  }
 
   if (msg.mentions.has(client.user.id)) {
     if (msg.author.bot) return;
