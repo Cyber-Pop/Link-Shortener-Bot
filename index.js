@@ -63,33 +63,10 @@ client.on('ready', () => {
 // Fires when a new messge is received
 
 client.on('message', msg => {
-  let guildPrefix;
-
-  if (!msg.guild) {
-    guildPrefix = prefix;
-  } else {
-    async function run() {
-      try {
-        database = await dbClient.db('databases');
-        guilds = await database.collection('guilds');
-        let query = {
-          guildID: msg.guild.id
-        }
-        let result = await guilds.findOne(query)
-        console.log(result)
-      } catch (e) {
-        console.log(e)
-      }
-    } 
-
-    run()
-  }
-
-  async function getPrefix() {
-
-  }
+  let guildPrefix = prefix;
 
   if (msg.mentions.has(client.user.id)) {
+    console.log(guildPrefix)
     if (msg.author.bot) return;
     msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${guildPrefix}\``)
   }
@@ -140,7 +117,7 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args, client, strings, prefixes);
+    command.execute(msg, args, client, strings, guildPrefix);
   } catch (error) {
     console.error(error);
     msg.reply(strings.runCommandError);

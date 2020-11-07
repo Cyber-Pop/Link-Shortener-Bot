@@ -4,7 +4,7 @@ module.exports = {
   cooldown: 3,
   args: true,
   usage: '<code>',
- execute(msg, args, client, strings, prefixes) {
+ execute(msg, args, client, strings, guildPrefix) {
     console.log(`Executed eval by ${msg.author.username}`)
     let avatar = client.user.displayAvatarURL();
     let code = args.join(' ')
