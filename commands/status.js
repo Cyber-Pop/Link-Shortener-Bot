@@ -3,7 +3,7 @@ module.exports = {
   ownerOnly: true,
   cooldown: 3,
   usage: '<name> <activity>',
-  execute(msg, args, client, strings) {
+  execute(msg, args, client, strings, prefix, axios) {
     const joined = args.join('')
     const split = joined.trim().split('|')
     // NOT DONE NEED TO CHECK IF ARGUMENTS REQUIRE FOR VARIABLES ARE EMPHTY

@@ -3,8 +3,7 @@ module.exports = {
   args: true,
   usage: '[link]',
   cooldown: 3,
-  execute(msg, args, client, strings) {
-    const axios = require('axios');
+  execute(msg, args, client, strings, prefix, axios) {
     let avatar = client.user.displayAvatarURL();
 
         let link = encodeURIComponent(args[0], msg)

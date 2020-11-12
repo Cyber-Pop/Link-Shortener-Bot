@@ -2,7 +2,7 @@ module.exports = {
   name: 'changelog',
   args: false,
   cooldown: 3,
-  execute(msg, args, client, strings) {
+  execute(msg, args, client, strings, prefix, axios) {
     let avatar = client.user.displayAvatarURL();
     let embed = {
       color: strings.mainColor,

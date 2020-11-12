@@ -44,12 +44,6 @@ if (strings.pingRequired) {
 
 // End Pinging Code
 
-async function dbSetup() {
-  await dbClient.connect()
-}
-
-dbSetup()
-
 // Fires once the bot is ready and logs it to the console then sets it status
 
 client.on('ready', () => {
@@ -63,8 +57,7 @@ client.on('ready', () => {
 // Fires when a new messge is received
 
 client.on('message', msg => {
-  let guildPrefix = prefix;
-
+  // Checks for mentions and if one includes the bot it sends a info message
   if (msg.mentions.has(client.user.id)) {
     console.log(guildPrefix)
     if (msg.author.bot) return;
@@ -72,19 +65,19 @@ client.on('message', msg => {
   }
 
   // If the command doesn't start with the prefix or is sent by a bot return
-  if (!msg.content.startsWith(guildPrefix) || msg.author.bot) return;
+  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
 
-  const args = msg.content.slice(guildPrefix.length).trim().split(/ +/);
+  const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
-
-  if (strings.devMode) {
-    console.log(args)
-  }
 
   if (!client.commands.has(commandName)) return;
 
   const command = client.commands.get(commandName)
+
+    if (command.ownerOnly && msg.author.id !== strings.ownerID) {
+    return msg.channel.send(`This command is owner only!`)
+  }
 
   if (command.args && !args.length) {
     let message = strings.argsMissingDescription;
@@ -105,11 +98,6 @@ client.on('message', msg => {
     return msg.channel.send({ embed: embed })
   }
 
-
-  if (command.ownerOnly && msg.author.id !== strings.ownerID) {
-    return msg.channel.send(`This command is owner only!`)
-  }
-
   if (command.guildOnly && !msg.guild) {
     return msg.channel.send(strings.guildOnly)
   } else if (!msg.guild.available) {
@@ -117,7 +105,7 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args, client, strings, guildPrefix);
+    command.execute(msg, args, client, strings, prefix, axios);
   } catch (error) {
     console.error(error);
     msg.reply(strings.runCommandError);

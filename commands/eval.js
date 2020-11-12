@@ -4,13 +4,16 @@ module.exports = {
   cooldown: 3,
   args: true,
   usage: '<code>',
- execute(msg, args, client, strings, guildPrefix) {
+ execute(msg, args, client, strings, prefix, axios) {
     console.log(`Executed eval by ${msg.author.username}`)
     let avatar = client.user.displayAvatarURL();
     let code = args.join(' ')
     let returned = ``
     let success;
     let embed = {
+        footer: {
+          "text": `Requested by ${msg.author.tag}`,
+        },
         color: strings.mainColor,
         fields: [
           {

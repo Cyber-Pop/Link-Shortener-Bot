@@ -2,9 +2,7 @@ module.exports = {
   name: 'help',
   args: false,
   cooldown: 3,
-  execute(msg, arg, client, strings) {
-    const prefix = strings.prefix;
-
+  execute(msg, args, client, strings, prefix, axios) {
     let avatar = client.user.displayAvatarURL();
     let embed = {
       color: strings.mainColor,
