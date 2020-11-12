@@ -101,8 +101,8 @@ client.on('message', msg => {
   try {
     command.execute(msg, args, client, config, prefix, axios);
   } catch (e) {
-    console.error(error);
-    msg.channel.send(`Sorry <@${msg.author.id}> there was an error while trying to run your command. If this continues happenning please join the support server and report this error.\n\nThe error is:\n ${e}`);
+    console.error(e);
+    msg.channel.send(`Sorry <@${msg.author.id}> there was an error while trying to run your command. If this continues happenning please join the support server and report this error.\n\nThe error is:\n \`${e}\` `);
   };
 
 })
