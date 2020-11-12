@@ -89,7 +89,7 @@ client.on('message', msg => {
     .setTitle(`Missing Arguments`)
     .setDescription(message)
 
-    return msg.channel.send({ embed: embed })
+    return msg.channel.send(embed)
   }
 
   if (command.guildOnly && !msg.guild) {
