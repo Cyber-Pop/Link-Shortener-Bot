@@ -17,11 +17,11 @@ module.exports = {
         color: strings.mainColor,
         fields: [
           {
-            "name": "Original Code",
+            "name": "📤 Original Code",
             "value":`\`${code}\``
           },
           {
-            "name": "Result",
+            "name": "📥 Result",
             "value": ""
           }
         ],
