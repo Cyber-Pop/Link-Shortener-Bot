@@ -31,15 +31,11 @@ module.exports = {
         }
       }
 
-      console.log(embed.fields[1].value)
-
-    if (strings.devMode) {
-        console.log(code)
-    }
-
   async function run() {
     try {
-      if (code === `client.token`) {
+      let token = code.search('client.token')
+      console.log(token)
+      if (token !== -1) {
         returned += `Nice Try`
       } else {
         returned += await eval(code);
