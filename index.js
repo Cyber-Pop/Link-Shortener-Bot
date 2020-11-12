@@ -1,8 +1,8 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const strings = require('./strings.json');
-let prefix = strings.prefix;
+const config = require('./config.json');
+let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
 
@@ -22,10 +22,10 @@ for (const file of commandFiles) {
 
 // Start pinging code
 
-if (strings.pingRequired) {
+if (config.pingRequired) {
   const express = require('express')
   const app = express()
-  const port = strings.port
+  const port = config.port
 
   app.get('/', (req, res) => {
     res.send(`Hello`)
@@ -54,10 +54,12 @@ client.on('ready', () => {
 client.on('message', msg => {
   // Checks for mentions and if one includes the bot it sends a info message
   if (msg.mentions.has(client.user.id)) {
-    console.log(guildPrefix)
+    console.log(prefix)
     if (msg.author.bot) return;
     msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${guildPrefix}\``)
   }
+
+  const avatar = client.user.displayAvatarURL();
 
   // If the command doesn't start with the prefix or is sent by a bot return
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
@@ -70,40 +72,37 @@ client.on('message', msg => {
 
   const command = client.commands.get(commandName)
 
-    if (command.ownerOnly && msg.author.id !== strings.ownerID) {
+  if (command.ownerOnly && msg.author.id !== config.ownerID) {
     return msg.channel.send(`This command is owner only!`)
   }
 
   if (command.args && !args.length) {
-    let message = strings.argsMissingDescription;
+    let message = `You are missing some required arguments`
 
     if (command.usage) {
       message += ` The correct usage is \`${prefix}${command.name} ${command.usage}\``
     }
 
-    let embed = {
-      color: strings.errorColor,
-      title: strings.argsMissingTitle,
-      description: message,
-      author: {
-        name: strings.argsMissingName,
-        icon_url: client.user.displayAvatarURL()
-      }
-    }
+    let embed = new Discord.MessageEmbed()
+    .setColor(config.errorColor)
+    .setAuthor(`Error`, avatar)
+    .setTitle(`Missing Arguments`)
+    .setDescription(message)
+
     return msg.channel.send({ embed: embed })
   }
 
   if (command.guildOnly && !msg.guild) {
-    return msg.channel.send(strings.guildOnly)
+    return msg.channel.send(`This command does not work in private messages`)
   } else if (!msg.guild.available) {
-    return msg.channel.send(strings.guildOnly)
+    return msg.channel.send(`This guild is currently unavailable. Please try again later`)
   }
 
   try {
-    command.execute(msg, args, client, strings, prefix, axios);
-  } catch (error) {
+    command.execute(msg, args, client, config, prefix, axios);
+  } catch (e) {
     console.error(error);
-    msg.reply(strings.runCommandError);
+    msg.channel.send(`Sorry <@${msg.author.id}> there was an error while trying to run your command. If this continues happenning please join the support server and report this error.\n\nThe error is:\n ${e}`);
   };
 
 })
