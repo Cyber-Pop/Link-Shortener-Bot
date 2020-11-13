@@ -2,11 +2,11 @@ module.exports = {
   name: 'changelog',
   args: false,
   cooldown: 3,
-  execute(msg, args, client, strings, prefix, axios) {
+  execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();
     let embed = {
-      color: strings.mainColor,
-      title: `Version ` + strings.botVersion,
+      color: config.mainColor,
+      title: `Version ` + config.botVersion,
       description: `• Fixed Embeds for mobile`, 
       author: { 
         name: `Changelog`, 

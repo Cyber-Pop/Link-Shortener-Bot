@@ -2,7 +2,7 @@ module.exports = {
   name: 'stats',
   args: false,
   cooldown: 3,
-  execute(msg, args, client, strings, prefix, axios) {
+  execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();
     const dependencies = require('../package.json');
     const sysInfo = require('systeminformation')

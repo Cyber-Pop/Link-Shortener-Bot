@@ -4,8 +4,7 @@ module.exports = {
   cooldown: 3,
   args: true,
   usage: '<code>',
- execute(msg, args, client, strings, prefix, axios) {
-    console.log(`Executed eval by ${msg.author.username}`)
+ execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();
     let code = args.join(' ')
     let returned = ``
@@ -41,13 +40,13 @@ module.exports = {
         returned += await eval(code);
       }
       embed.fields[1].value = `\`${returned}\``
-      embed.author.name = strings.evalSuccess
-      msg.react(strings.successEmoji)
+      embed.author.name = `Success!`
+      msg.react(config.successEmoji)
     } catch (e) {
       embed.fields[1].value = `\`${e}\``
-      embed.author.name = strings.evalSuccess
-      embed.color = strings.errorColor
-      msg.react(strings.errorEmoji)
+      embed.author.name = `Error`
+      embed.color = config.errorColor
+      msg.react(config.errorEmoji)
     }
       msg.channel.send({ embed: embed })
   }
