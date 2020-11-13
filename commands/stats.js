@@ -4,7 +4,7 @@ module.exports = {
   guildOnly: false,
   args: false,
   cooldown: 10,
-  usage: ''
+  usage: '',
   execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();
     const dependencies = require('../package.json');

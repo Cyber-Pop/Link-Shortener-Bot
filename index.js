@@ -65,6 +65,8 @@ client.on('guildCreate', guild => {
     .setThumbnail(guild.iconURL())
 
     client.channels.cache.get(config.guildLoggingChannel).send(embed)
+
+    guild.channels.cache.filter(channel => channel)
   } catch (e) {
     console.log(e)
   }

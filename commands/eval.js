@@ -2,13 +2,14 @@ module.exports = {
   name: 'eval',
   ownerOnly: true,
   guildOnly: false,
-  cooldown: 3,
   args: true,
+  cooldown: 3,
   usage: '<code>',
  execute(msg, args, client, config, prefix, axios, Discord) {
+    const util = require('util');
     let avatar = client.user.displayAvatarURL();
-    let code = args.join(' ')
-    let returned = ``
+    let code = args.join(' ');
+    let returned = ``;
     let success;
     let embed = {
         footer: {
@@ -37,13 +38,25 @@ module.exports = {
       if (token !== -1) {
         returned += `Nice Try`
       } else {
-        returned += await eval(code);
+        let rawReturned = await eval(code);
+        if (typeof rawReturned !== "string") {
+          returned += util.inspect(rawReturned)
+        } else {
+            returned += rawReturned
+        }
       }
       embed.fields[1].value = `\`${returned}\``
       embed.author.name = `Success!`
       msg.react(config.successEmoji)
     } catch (e) {
-      embed.fields[1].value = `\`${e}\``
+      let returned;
+       if (typeof e !== "string") {
+          returned += util.inspect(e)
+        } else {
+            returned += e
+        }
+
+      embed.fields[1].value = ` \`${returned}\` `
       embed.author.name = `Error`
       embed.color = config.errorColor
       msg.react(config.errorEmoji)
