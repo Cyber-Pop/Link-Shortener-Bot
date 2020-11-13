@@ -66,7 +66,7 @@ client.on('guildCreate', guild => {
 
     client.channels.cache.get(config.guildLoggingChannel).send(embed)
 
-    guild.channels.cache.filter(channel => channel)
+    guild.owner.send(`Thanks for adding me to ${guild.name}! To get started run \`${prefix}help\` `)
   } catch (e) {
     console.log(e)
   }
