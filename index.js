@@ -50,6 +50,43 @@ client.on('ready', () => {
 });
 
 // Fires when a new messge is received
+client.on('guildCreate', guild => {
+  const avatar = client.user.displayAvatarURL();
+
+  try {
+    const humans = guild.members.cache.filter(member => !member.user.bot).size
+    const bots = guild.members.cache.filter(member => member.user.bot).size
+
+    let embed = new Discord.MessageEmbed()
+    .setColor(config.mainColor)
+    .setAuthor(`Joined ${guild.name}!`)
+    .setDescription(`**Owner:** ${guild.owner.user.tag}\n**Owner ID:** ${guild.ownerID}\n**Server ID:** ${guild.id}\n**Total Members:** ${guild.memberCount}\n**Humans:** ${humans}\n**Bots:** ${bots}`)
+    .setThumbnail(guild.iconURL())
+
+    client.channels.cache.get(config.guildLoggingChannel).send(embed)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+client.on('guildDelete', guild => {
+  const avatar = client.user.displayAvatarURL();
+
+  try {
+    const humans = guild.members.cache.filter(member => !member.user.bot).size
+    const bots = guild.members.cache.filter(member => member.user.bot).size
+
+    let embed = new Discord.MessageEmbed()
+    .setColor(config.errorColor)
+    .setAuthor(`Left ${guild.name}`)
+    .setDescription(`**Owner:** ${guild.owner.user.tag}\n**Owner ID:** ${guild.ownerID}\n**Server ID:** ${guild.id}\n**Total Members:** ${guild.memberCount}\n**Humans:** ${humans}\n**Bots:** ${bots}`)
+    .setThumbnail(guild.iconURL())
+
+    client.channels.cache.get(config.guildLoggingChannel).send(embed)
+  } catch (e) {
+    console.log(e)
+  }
+})
 
 client.on('message', msg => {
   // Checks for mentions and if one includes the bot it sends a info message
