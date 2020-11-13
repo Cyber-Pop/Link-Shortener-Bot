@@ -49,7 +49,7 @@ client.on('ready', () => {
     .catch(console.error);
 });
 
-// Fires when a new messge is received
+// Fires when a new message is received
 client.on('guildCreate', guild => {
   if (!config.guildLoggingChannel) return;
   const avatar = client.user.displayAvatarURL();
