@@ -1,6 +1,9 @@
 module.exports = {
   name: 'changelog',
+  ownerOnly: false,
+  guildOnly: false,
   args: false,
+  usage: ''
   cooldown: 3,
   execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();

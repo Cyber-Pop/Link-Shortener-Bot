@@ -1,5 +1,7 @@
 module.exports = {
   name: '8ball',
+  ownerOnly: false,
+  guildOnly: false,
   args: false,
   usage: '<question>',
   cooldown: 3,

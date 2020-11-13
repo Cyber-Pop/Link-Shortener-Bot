@@ -1,6 +1,7 @@
 module.exports = {
-  ownerOnly: true,
   name: 'eval',
+  ownerOnly: true,
+  guildOnly: false,
   cooldown: 3,
   args: true,
   usage: '<code>',

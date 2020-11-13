@@ -1,7 +1,9 @@
 module.exports = {
   name: 'vgd',
+  ownerOnly: true,
+  guildOnly: false,
   args: true,
-  usage: '[link]',
+  usage: '<link>',
   cooldown: 3,
  execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();

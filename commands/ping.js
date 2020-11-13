@@ -1,7 +1,10 @@
 module.exports = {
   name: 'ping',
+  ownerOnly: true,
+  guildOnly: false,
   args: false,
   cooldown: 3,
+  usage: '',
   execute(msg, args, client, config, prefix, axios, Discord) {
     async function ping() {
       const m = await msg.channel.send("Ping?");

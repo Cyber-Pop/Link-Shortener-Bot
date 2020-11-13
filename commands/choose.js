@@ -1,7 +1,10 @@
 module.exports = {
   name: 'choose',
+  ownerOnly: true,
+  guildOnly: false,
   args: true,
   cooldown: 3,
+  usage: '<choice> | <choice>',
   execute(msg, args, client, config, prefix, axios, Discord) {
     const joined = args.join(' ')
     const split = joined.split('|')

@@ -1,7 +1,10 @@
 module.exports = {
   name: 'stats',
+  ownerOnly: true,
+  guildOnly: false,
   args: false,
-  cooldown: 3,
+  cooldown: 10,
+  usage: ''
   execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();
     const dependencies = require('../package.json');

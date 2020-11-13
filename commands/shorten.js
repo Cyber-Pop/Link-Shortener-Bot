@@ -1,11 +1,13 @@
 module.exports = {
   name: 'shorten',
-  args: true,
-  usage: '[link]',
+  ownerOnly: true,
+  guildOnly: false,
+  args: false,
   cooldown: 3,
+  usage: '<link>',
  execute(msg, args, client, config, prefix, axios, Discord) 
  {
-   msg.channnel.send(`This command has been temporarly disabled try ${prefix}vgd instead`)
+   msg.channel.send(`This command has been temporarly disabled. Try using \`${prefix}vgd [url]\` instead`)
     /* let avatar = client.user.displayAvatarURL();
     let link = encodeURIComponent(args[0], msg)
     const errors = require(`../snippets/isgd.json`)

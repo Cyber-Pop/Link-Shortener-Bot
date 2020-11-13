@@ -1,6 +1,7 @@
 module.exports = {
   name: 'status',
   ownerOnly: true,
+  guildOnly: false,
   cooldown: 3,
   usage: '<name> <activity>',
   execute(msg, args, client, config, prefix, axios, Discord) {

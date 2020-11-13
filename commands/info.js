@@ -1,7 +1,10 @@
 module.exports = {
   name: 'info',
+  ownerOnly: true,
+  guildOnly: false,
   args: false,
   cooldown: 3,
+  usage: '',
   execute(msg, args, client, config, prefix, axios, Discord) {
     let avatar = client.user.displayAvatarURL();
     let embed =  {
