@@ -51,6 +51,7 @@ client.on('ready', () => {
 
 // Fires when a new messge is received
 client.on('guildCreate', guild => {
+  if (!config.guildLoggingChannel) return;
   const avatar = client.user.displayAvatarURL();
 
   try {
@@ -70,6 +71,7 @@ client.on('guildCreate', guild => {
 })
 
 client.on('guildDelete', guild => {
+  if (!config.guildLoggingChannel) return;
   const avatar = client.user.displayAvatarURL();
 
   try {
