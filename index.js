@@ -5,6 +5,7 @@ const config = require('./config.json');
 let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
+const chalk = require('chalk')
 
 // Makes a new collection with all the files in /commands
 
@@ -45,7 +46,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   client.user.setPresence(status)
-    .then(console.log(`Status set`))
+    .then(console.log(chalk.bgWhite(`INFO`),  `Status set`))
     .catch(console.error);
 });
 
