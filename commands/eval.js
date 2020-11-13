@@ -13,7 +13,7 @@ module.exports = {
         footer: {
           "text": `Requested by ${msg.author.tag}`,
         },
-        color: strings.mainColor,
+        color: config.mainColor,
         fields: [
           {
             "name": "📤 Original Code",
