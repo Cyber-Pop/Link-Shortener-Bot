@@ -33,7 +33,6 @@ module.exports = {
   async function run() {
     try {
       let token = code.search('client.token')
-      console.log(token)
       if (token !== -1) {
         returned += `Nice Try`
       } else {
