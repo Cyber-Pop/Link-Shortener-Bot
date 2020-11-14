@@ -6,7 +6,7 @@ module.exports = {
   cooldown: 3,
   usage: '',
  execute(msg, args, client, config, prefix, axios, Discord, avatar) {
-    let embed =  {
+    let oldEmbed =  {
         color: config.mainColor,
         title: `About Me`,
         description: `I started off as a side project meant to put my owners skills to the test in combining various things that I learned throughout my coding journer. I'm the first bot that my owner made to actually be published. This means that support will probably be nonexistent and downtime might happen more often than expected`,

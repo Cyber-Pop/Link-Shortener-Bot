@@ -9,27 +9,6 @@ module.exports = {
     let code = args.join(' ');
     let returned = ``;
     let success;
-    let oldEmbed = {
-        footer: {
-          "text": `Requested by ${msg.author.tag}`,
-        },
-        color: config.mainColor,
-        fields: [
-          {
-            "name": "📤 Original Code",
-            "value":`\`${code}\``
-          },
-          {
-            "name": "📥 Result",
-            "value": ""
-          }
-        ],
-        author: {
-          name: ``,
-          icon_url: avatar
-        }
-      }
-
     const embed = new Discord.MessageEmbed()
     .addField(`📤 Original Code`, code)
     .setFooter(`Requested by ${msg.author.tag}`)
