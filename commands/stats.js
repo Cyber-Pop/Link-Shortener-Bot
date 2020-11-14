@@ -48,7 +48,7 @@ module.exports = {
 
       os = osResponse.distro
 
-      let embed =  {
+      let oldEmbed =  {
         color: config.mainColor,
         fields: [
           {
@@ -70,7 +70,14 @@ module.exports = {
       }
     }
 
-    msg.channel.send({embed : embed})
+    let embed = new Discord.MessageEmbed()
+    .setColor(config.mainColor)
+    .setAuthor(`Stats`, avatar)
+    .addField(`Bot Stats`, `Servers: **${client.guilds.cache.size}\n**Channels: **${client.channels.cache.size}**\nUsers: **${client.users.cache.size}**`)
+    .addField(`Utilities`, `Nodejs: **${process.version}**\nDiscord.js: **${discordjsVersion}**\nAxios: **${axiosVersion}**\nExpress: **${expressVersion}**\nSystem Information: **${sysInfoVersion}**`)
+    .addField(`System`, `OS: **${os}**\nCPU: **${cpuLoad}%**\nMemory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`)
+
+    msg.channel.send(embed)
     }
 
     stats()

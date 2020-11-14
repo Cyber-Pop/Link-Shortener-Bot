@@ -8,7 +8,7 @@ module.exports = {
  execute(msg, args, client, config, prefix, axios, Discord, avatar) {
  {
    msg.channel.send(`This command has been temporarly disabled. Try using \`${prefix}vgd [url]\` instead`)
-    /* let link = encodeURIComponent(args[0], msg)
+/*     let link = encodeURIComponent(args[0], msg)
     const errors = require(`../snippets/isgd.json`)
 
     axios.get(`https:/is.gd/create.php?format=simple&url=${link}`)
