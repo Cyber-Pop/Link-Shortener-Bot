@@ -25,6 +25,31 @@ module.exports = {
 
       embed.setTitle('Commands')
       embed.setDescription(`**List of available commands:**\n${commandList}`)
+    } else {
+      const command = commands.get(args[0])
+      if (!command) {
+        msg.channel.send(`${args[0]} is a not a valid command`)
+      } else {
+        let description = command.description;
+        let cooldown = command.cooldown;
+        let usage = `${prefix}${command.name} `;
+        if (!command.description) {
+          description = `There is no description available for this command`
+        }
+        if (!command.cooldown) {
+          cooldown = `${config.defaultCooldown}`
+          console.log(`no cooldown`)
+        }
+        if (!command.usage) {
+          usage += ``
+          console.log(`no usage`)
+        }
+        console.log(command)
+        embed.setTitle(command.name)
+        embed.addField(`Description`, description)
+        embed.addField(`Cooldown`, cooldown)
+        embed.addField(`Usage`, usage)
+      }
     }
 
     msg.channel.send(embed)
