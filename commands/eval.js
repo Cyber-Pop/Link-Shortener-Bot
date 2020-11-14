@@ -6,11 +6,10 @@ module.exports = {
   cooldown: 3,
   usage: '<code>',
  execute(msg, args, client, config, prefix, axios, Discord, avatar) {
-    const util = require('util');
     let code = args.join(' ');
     let returned = ``;
     let success;
-    let embed = {
+    let oldEmbed = {
         footer: {
           "text": `Requested by ${msg.author.tag}`,
         },
@@ -31,6 +30,10 @@ module.exports = {
         }
       }
 
+    const embed = new Discord.MessageEmbed()
+    .addField(`📤 Original Code`, code)
+    .setFooter(`Requested by ${msg.author.tag}`)
+
   async function run() {
     try {
       let token = code.search('client.token')
@@ -38,29 +41,21 @@ module.exports = {
         returned += `Nice Try`
       } else {
         let rawReturned = await eval(code);
-        if (typeof rawReturned !== "string") {
-          returned += util.inspect(rawReturned)
-        } else {
-            returned += rawReturned
-        }
+          returned += rawReturned
       }
-      embed.fields[1].value = `\`${returned}\``
-      embed.author.name = `Success!`
+      embed.addField(`📥 Result`, returned)
+      embed.setAuthor(`Success!`, avatar)
+      embed.setColor(config.mainColor)
       msg.react(config.successEmoji)
     } catch (e) {
-      let returned;
-       if (typeof e !== "string") {
-          returned += util.inspect(e)
-        } else {
-            returned += e
-        }
+      returned += e;
 
-      embed.fields[1].value = ` \`${returned}\` `
-      embed.author.name = `Error`
-      embed.color = config.errorColor
+      embed.addField(`📥 Result`, returned)
+      embed.setAuthor(`Error`, avatar)
+      embed.setColor(config.errorColor)
       msg.react(config.errorEmoji)
     }
-      msg.channel.send({ embed: embed })
+      msg.channel.send(embed)
   }
 
     run()
