@@ -24,7 +24,7 @@ module.exports = {
       const commandList = commands.map(command => command.name).join('\n')
 
       embed.setTitle('Commands')
-      embed.setDescription(`List of available commands`)
+      embed.setDescription(`**List of available commands:**\n${commandList}`)
     }
 
     msg.channel.send(embed)
