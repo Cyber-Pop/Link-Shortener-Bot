@@ -5,8 +5,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   usage: '',
-  execute(msg, args, client, config, prefix, axios, Discord) {
-    let avatar = client.user.displayAvatarURL();
+   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     let embed = {
       color: config.mainColor,
       title: `Version ` + config.botVersion,

@@ -5,9 +5,8 @@ module.exports = {
   args: true,
   cooldown: 3,
   usage: '<code>',
- execute(msg, args, client, config, prefix, axios, Discord) {
+ execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const util = require('util');
-    let avatar = client.user.displayAvatarURL();
     let code = args.join(' ');
     let returned = ``;
     let success;

@@ -5,8 +5,7 @@ module.exports = {
   args: true,
   usage: '<link>',
   cooldown: 3,
- execute(msg, args, client, config, prefix, axios, Discord) {
-    let avatar = client.user.displayAvatarURL();
+ execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     let link = encodeURIComponent(args[0], msg)
     const errors = require(`../snippets/vgd.json`)
 

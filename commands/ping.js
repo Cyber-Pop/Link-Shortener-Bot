@@ -5,7 +5,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   usage: '',
-  execute(msg, args, client, config, prefix, axios, Discord) {
+ execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     async function ping() {
       const m = await msg.channel.send("Ping?");
 

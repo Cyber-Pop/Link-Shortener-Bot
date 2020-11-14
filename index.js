@@ -30,11 +30,11 @@ if (config.pingRequired) {
 
   app.get('/', (req, res) => {
     res.send(`Hello`)
-    console.log(`Pinged!`)
+    console.log(chalk.inverse(`INFO`),`Pinged!`)
   })
 
   app.listen(port, () => {
-    console.log(`Express running`)
+    console.log(chalk.inverse(`INFO`),`Express running`)
   })
 }
 
@@ -43,10 +43,10 @@ if (config.pingRequired) {
 // Fires once the bot is ready and logs it to the console then sets it status
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+  console.log(chalk.inverse(`INFO`),`Logged in as ${client.user.tag}!`);
 
   client.user.setPresence(status)
-    .then(console.log(chalk.bgWhite(`INFO`),  `Status set`))
+    .then(console.log(chalk.inverse(`INFO`),  `Status Set`))
     .catch(console.error);
 });
 
@@ -69,7 +69,7 @@ client.on('guildCreate', guild => {
 
     guild.owner.send(`Thanks for adding me to ${guild.name}! To get started run \`${prefix}help\` `)
   } catch (e) {
-    console.log(e)
+    console.log(chalk.bgRedBright(`ERROR`) , e)
   }
 })
 
@@ -89,7 +89,7 @@ client.on('guildDelete', guild => {
 
     client.channels.cache.get(config.guildLoggingChannel).send(embed)
   } catch (e) {
-    console.log(e)
+    console.log(chalk.bgRedBright(`ERROR`) , e)
   }
 })
 
@@ -141,9 +141,9 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args, client, config, prefix, axios, Discord);
+    command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
   } catch (e) {
-    console.error(e);
+    console.log(chalk.bgRedBright(`ERROR`) , e)
     msg.channel.send(`Sorry <@${msg.author.id}> there was an error while trying to run your command. If this continues happenning please join the support server and report this error.\n\nThe error is:\n \`${e}\` `);
   };
 

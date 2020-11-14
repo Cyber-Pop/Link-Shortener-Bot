@@ -5,8 +5,7 @@ module.exports = {
   args: false,
   cooldown: 10,
   usage: '',
-  execute(msg, args, client, config, prefix, axios, Discord) {
-    let avatar = client.user.displayAvatarURL();
+ execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const dependencies = require('../package.json');
     const sysInfo = require('systeminformation')
     let discordjsVersionRaw = dependencies["dependencies"]["discord.js"];
@@ -50,7 +49,7 @@ module.exports = {
       os = osResponse.distro
 
       let embed =  {
-        color: strings.mainColor,
+        color: config.mainColor,
         fields: [
           {
             name: `Bot Stats`,
@@ -75,7 +74,5 @@ module.exports = {
     }
 
     stats()
-
-    
   }
 }
