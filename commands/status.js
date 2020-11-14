@@ -9,8 +9,10 @@ module.exports = {
     const split = joined.split('|')
 
     const presence = split[0].trim()
-    const status = split[1].trim()
+    const temp = split[1].trim()
+    const status = split[2].trim()
     console.log(`"${presence}" `)
+    console.log(`"${temp}" `)
     console.log(`"${status}" `)
 
     client.user.setPresence({activity: {name: presence}})
