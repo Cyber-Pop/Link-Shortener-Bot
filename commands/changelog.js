@@ -6,16 +6,12 @@ module.exports = {
   cooldown: 3,
   usage: '',
    execute(msg, args, client, config, prefix, axios, Discord, avatar) {
-    let embed = {
-      color: config.mainColor,
-      title: `Version ` + config.botVersion,
-      description: `• Fixed Embeds for mobile`, 
-      author: { 
-        name: `Changelog`, 
-        icon_url: avatar
-      }
-    }
+    const embed = new Discord.MessageEmbed()
+    .setColor(config.mainColor)
+    .setAuthor(`Changelog`, avatar)
+    .setTitle(`Version ${config.botVersion}`)
+    .setDescription(`STOP COMPLAINING ABOUT MY UPDATES`)
 
-    msg.channel.send({ embed: embed })
+    msg.channel.send(embed)
   }
 }
