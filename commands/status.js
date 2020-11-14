@@ -13,7 +13,8 @@ module.exports = {
     console.log(`"${presence}" `)
     console.log(`"${status}" `)
 
-    client.user.setPresence({activity: {name: presence}, status: status})
+    client.user.setPresence({activity: {name: presence}})
+    client.user.setStatus(status)
     msg.channel.send(`Updated!`)
   }
 }
