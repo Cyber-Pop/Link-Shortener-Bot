@@ -1,6 +1,6 @@
 module.exports = {
   name: 'info',
-  ownerOnly: true,
+  ownerOnly: false,
   guildOnly: false,
   args: false,
   cooldown: 3,

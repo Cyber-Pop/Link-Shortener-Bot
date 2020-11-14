@@ -1,6 +1,6 @@
 module.exports = {
   name: 'ping',
-  ownerOnly: true,
+  ownerOnly: false,
   guildOnly: false,
   args: false,
   cooldown: 3,

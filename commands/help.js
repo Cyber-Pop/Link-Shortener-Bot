@@ -1,6 +1,6 @@
 module.exports = {
   name: 'help',
-  ownerOnly: true,
+  ownerOnly: false,
   guildOnly: false,
   args: false,
   cooldown: 3,
@@ -32,17 +32,13 @@ module.exports = {
       } else {
         let description = command.description;
         let cooldown = command.cooldown;
-        let usage = `${prefix}${command.name} `;
+        let usage = `${prefix}${command.name} ${command.usage}`;
         if (!command.description) {
           description = `There is no description available for this command`
         }
         if (!command.cooldown) {
           cooldown = `${config.defaultCooldown}`
           console.log(`no cooldown`)
-        }
-        if (!command.usage) {
-          usage += ``
-          console.log(`no usage`)
         }
         console.log(command)
         embed.setTitle(command.name)

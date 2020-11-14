@@ -1,6 +1,6 @@
 module.exports = {
   name: 'choose',
-  ownerOnly: true,
+  ownerOnly: false,
   guildOnly: false,
   args: true,
   cooldown: 3,

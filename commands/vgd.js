@@ -1,6 +1,6 @@
 module.exports = {
   name: 'vgd',
-  ownerOnly: true,
+  ownerOnly: false,
   guildOnly: false,
   args: true,
   usage: '<link>',
