@@ -1,5 +1,6 @@
 module.exports = {
   name: 'shorten',
+  description: 'Shorterns links using [is.gd](https://is.gd). Currently disabled',
   ownerOnly: false,
   guildOnly: false,
   args: false,
