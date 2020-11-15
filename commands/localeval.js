@@ -1,5 +1,6 @@
 module.exports = {
   name: 'localeval',
+  description: 'Runs Javascript code on the shard its used on. Or acts like a normal eval without sharding. Owner only',
   ownerOnly: true,
   guildOnly: false,
   args: true,

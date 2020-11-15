@@ -1,5 +1,6 @@
 module.exports = {
   name: 'changelog',
+  description: 'Shows the changes of the most recent update',
   ownerOnly: false,
   guildOnly: false,
   args: false,
