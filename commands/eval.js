@@ -19,7 +19,7 @@ module.exports = {
       if (token !== -1) {
         returned += `Nice Try`
       } else {
-        let rawReturned = await eval(code);
+        let rawReturned = await client.shard.broadcastEval(code);
           returned += rawReturned
       }
       embed.addField(`📥 Result`, returned)
