@@ -49,6 +49,8 @@ module.exports = {
       os = osResponse.distro
 
     let serverCount;
+    let userCount;
+    let channelCount;
 
     await client.shard.fetchClientValues('guilds.cache.size')
     .then(results => {
@@ -57,11 +59,25 @@ module.exports = {
       serverCount = reduced;
     });
 
+    await client.shard.fetchClientValues('users.cache.size')
+    .then(results => {
+      const reducer = (accumulator, shardGuilds) => accumulator + shardGuilds;
+      const reduced = results.reduce(reducer);
+      userCount = reduced;
+    });
+
+    await client.shard.fetchClientValues('channels.cache.size')
+    .then(results => {
+      const reducer = (accumulator, shardGuilds) => accumulator + shardGuilds;
+      const reduced = results.reduce(reducer);
+      channelCount = reduced;
+    });
+
 
     let embed = new Discord.MessageEmbed()
     .setColor(config.mainColor)
     .setAuthor(`Stats`, avatar)
-    .addField(`Bot Stats`, `Servers: **${serverCount}\n**Channels: **${client.channels.cache.size}**\nUsers: **${client.users.cache.size}**`)
+    .addField(`Bot Stats`, `Servers: **${serverCount}\n**Channels: **${channelCount}**\nUsers: **${userCount}**`)
     .addField(`Utilities`, `Nodejs: **${process.version}**\nDiscord.js: **${discordjsVersion}**\nAxios: **${axiosVersion}**\nExpress: **${expressVersion}**\nSystem Information: **${sysInfoVersion}**`)
     .addField(`System`, `OS: **${os}**\nCPU: **${cpuLoad}%**\nMemory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`)
 

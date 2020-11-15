@@ -114,9 +114,7 @@ client.on('message', msg => {
 
   const command = client.commands.get(commandName)
 
-  if (command.ownerOnly && msg.author.id !== config.ownerID) {
-    return msg.channel.send(`This command is owner only!`)
-  }
+  if (command.ownerOnly && msg.author.id !== config.ownerID) return;
 
   if (command.args && !args.length) {
     let message = `You are missing some required arguments`
