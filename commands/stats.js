@@ -48,32 +48,20 @@ module.exports = {
 
       os = osResponse.distro
 
-      let oldEmbed =  {
-        color: config.mainColor,
-        fields: [
-          {
-            name: `Bot Stats`,
-            value: `Servers: **${client.guilds.cache.size}\n**Channels: **${client.channels.cache.size}**\nUsers: **${client.users.cache.size}**`
-          },
-          {
-            name: `Utilities`,
-            value: `Nodejs: **${process.version}**\nDiscord.js: **${discordjsVersion}**\nAxios: **${axiosVersion}**\nExpress: **${expressVersion}**\nSystem Information: **${sysInfoVersion}**`
-          },
-          {
-            name: `System`,
-            value: `OS: **${os}**\nCPU: **${cpuLoad}%**\nMemory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`
-          }
-        ],
-        author: {
-		    name: `Stats`,
-		    icon_url: avatar
-      }
-    }
+    let serverCount;
+
+    await client.shard.fetchClientValues('guilds.cache.size')
+    .then(results => {
+      const reducer = (accumulator, shardGuilds) => accumulator + shardGuilds;
+      const reduced = results.reduce(reducer);
+      serverCount = reduced;
+    });
+
 
     let embed = new Discord.MessageEmbed()
     .setColor(config.mainColor)
     .setAuthor(`Stats`, avatar)
-    .addField(`Bot Stats`, `Servers: **${client.guilds.cache.size}\n**Channels: **${client.channels.cache.size}**\nUsers: **${client.users.cache.size}**`)
+    .addField(`Bot Stats`, `Servers: **${serverCount}\n**Channels: **${client.channels.cache.size}**\nUsers: **${client.users.cache.size}**`)
     .addField(`Utilities`, `Nodejs: **${process.version}**\nDiscord.js: **${discordjsVersion}**\nAxios: **${axiosVersion}**\nExpress: **${expressVersion}**\nSystem Information: **${sysInfoVersion}**`)
     .addField(`System`, `OS: **${os}**\nCPU: **${cpuLoad}%**\nMemory: **${percentage}% (${usingMemory}MB/${totalMemory}MB)**`)
 
