@@ -1,5 +1,6 @@
 module.exports = {
   name: 'status',
+  description: 'Updates the bots status. This command is a work in progress and is owner only.',
   ownerOnly: true,
   guildOnly: false,
   cooldown: 3,
