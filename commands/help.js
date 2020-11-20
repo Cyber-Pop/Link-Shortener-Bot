@@ -1,21 +1,44 @@
 module.exports = {
   name: 'help',
+  description: 'I think this one is self explanatory',
+  ownerOnly: false,
+  guildOnly: false,
   args: false,
   cooldown: 3,
-  execute(msg, arg, client, strings) {
-    const prefix = strings.prefix;
+  usage: '',
+  execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+    const embed = new Discord.MessageEmbed()
+    .setColor(config.mainColor)
+    const { commands } = msg.client;
 
-    let avatar = client.user.displayAvatarURL();
-    let embed = {
-      color: strings.mainColor,
-      title: `Commands`,
-      description: `List of available commands:\n\n**${prefix}help:** You're viewing it right now\n**${prefix}info:** Shows info about the bot\n**${prefix}stats:** Show simple statistics about the bot\n**${prefix}changelog:** Shows most recent changes\n**${prefix}ping:** Replies back with Pong!\n**${prefix}shorten [url]:** Shortens a link\n**${prefix}vgd [url]:** Shortens a link using v.gd`, 
-      author: { 
-        name: `Help`, 
-        icon_url: avatar
+    if (!args.length) {
+      const commandList = commands.map(command => command.name).join('\n')
+
+      embed.setTitle('Commands')
+      embed.setDescription(`**List of available commands:**\n${commandList}`)
+    } else {
+      // This comment is to make sure you know this is a embeded if statement
+      const command = commands.get(args[0])
+      if (!command) {
+        msg.channel.send(`${args[0]} is a not a valid command`)
+      } else {
+        let description = command.description;
+        let cooldown = command.cooldown;
+        let usage = `${prefix}${command.name} ${command.usage}`;
+        if (!command.description) {
+          description = `There is no description available for this command`
+        }
+        if (!command.cooldown) {
+          cooldown = `${config.defaultCooldown}`
+        }
+        embed.setTitle(command.name)
+        embed.addField(`Description`, description)
+        embed.addField(`Cooldown`, cooldown)
+        embed.addField(`Usage`, usage)
       }
+      // End of embeded if statement
     }
 
-    msg.channel.send({ embed: embed })
+    msg.channel.send(embed)
   }
 }

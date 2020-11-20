@@ -1,19 +1,18 @@
 module.exports = {
   name: 'changelog',
+  description: 'Shows the changes of the most recent update',
+  ownerOnly: false,
+  guildOnly: false,
   args: false,
   cooldown: 3,
-  execute(msg, args, client, strings) {
-    let avatar = client.user.displayAvatarURL();
-    let embed = {
-      color: strings.mainColor,
-      title: `Version ` + strings.botVersion,
-      description: `• Fixed Embeds for mobile`, 
-      author: { 
-        name: `Changelog`, 
-        icon_url: avatar
-      }
-    }
+  usage: '',
+   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+    const embed = new Discord.MessageEmbed()
+    .setColor(config.mainColor)
+    .setAuthor(`Changelog`, avatar)
+    .setTitle(`Version ${config.botVersion}`)
+    .setDescription(`STOP COMPLAINING ABOUT MY UPDATES`)
 
-    msg.channel.send({ embed: embed })
+    msg.channel.send(embed)
   }
 }
