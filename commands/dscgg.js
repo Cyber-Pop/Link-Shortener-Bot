@@ -7,6 +7,7 @@ module.exports = {
   cooldown: 3,
   usage: '<part after the links slash>',
   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+    const errors = require(`../snippets/dscgg.json`)
     // Code for API V2
 
     /* axios.get(`https://dsc.gg/api/v2/link/${args[0]}`)
@@ -49,6 +50,17 @@ module.exports = {
       //console.log(response)
     })
     .catch(function (error) {
+      //if (error.data)
+
+
+      const embed = new Discord.MessageEmbed()
+      .setColor(config.errorColor)
+      .setAuthor(`Error`, avatar)
+      .setDescription(`An error occured while getting your link. Make sure your link is valid`)
+
+      msg.channel.send(embed)
+      console.log(error)
+      console.log(`************************************************`)
       console.log(error)
     })
   }
