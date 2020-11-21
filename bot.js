@@ -141,8 +141,13 @@ client.on('message', msg => {
   try {
     command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
   } catch (e) {
+    const embed = new Discord.MessageEmbed()
+    .setColor(config.errorColor)
+    .setAuthor(`Error`, avatar)
+    .setDescription(`An error occured while attempting to run your command. Make sure I have the required permissions with \`${prefix}diagnose\`. If this continues happening please report this error to the [support server](https://dsc.gg/sea).`)
+    .addField(`Error Message`, e)
+    msg.channel.send(embed)
     console.log(chalk.bgRedBright(`ERROR`) , e)
-    msg.channel.send(`Sorry <@${msg.author.id}> there was an error while trying to run your command. If this continues happenning please join the support server and report this error.\n\nThe error is:\n \`${e}\` `);
   };
 
 })
