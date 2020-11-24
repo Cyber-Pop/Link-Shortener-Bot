@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const Statcord = require("statcord.js");
 const client = new Discord.Client();
 const config = require('./config.json');
 let prefix = config.prefix;
@@ -111,8 +112,9 @@ client.on('message', msg => {
   if (!client.commands.has(commandName)) return;
 
   const avatar = client.user.displayAvatarURL();
-
   const command = client.commands.get(commandName)
+
+  Statcord.ShardingClient.postCommand(commandName, msg.author.id, client);
 
   if (command.ownerOnly && msg.author.id !== config.ownerID) return;
 
