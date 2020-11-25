@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const Statcord = require("statcord.js");
 const client = new Discord.Client();
 const config = require('./config.json');
 let prefix = config.prefix;
@@ -30,11 +31,11 @@ if (config.pingRequired) {
 
   app.get('/', (req, res) => {
     res.send(`Hello`)
-    console.log(chalk.inverse(`INFO`),`Pinged!`)
+    console.log(chalk.inverse(`INFO`), `Pinged!`)
   })
 
   app.listen(port, () => {
-    console.log(chalk.inverse(`INFO`),`Express running`)
+    console.log(chalk.inverse(`INFO`), `Express running`)
   })
 }
 
@@ -43,10 +44,10 @@ if (config.pingRequired) {
 // Fires once the bot is ready and logs it to the console then sets it status
 
 client.on('ready', () => {
-  console.log(chalk.inverse(`INFO`),`Logged in as ${client.user.tag}!`);
+  console.log(chalk.inverse(`INFO`), `Logged in as ${client.user.tag}!`);
 
   client.user.setPresence(status)
-    .then(console.log(chalk.inverse(`INFO`),  `Status Set`))
+    .then(console.log(chalk.inverse(`INFO`), `Status Set`))
     .catch(console.error);
 });
 
@@ -60,16 +61,16 @@ client.on('guildCreate', guild => {
     const bots = guild.members.cache.filter(member => member.user.bot).size
 
     let embed = new Discord.MessageEmbed()
-    .setColor(config.mainColor)
-    .setAuthor(`Joined ${guild.name}!`)
-    .setDescription(`**Owner:** ${guild.owner.user.tag}\n**Owner ID:** ${guild.ownerID}\n**Server ID:** ${guild.id}\n**Total Members:** ${guild.memberCount}\n**Humans:** ${humans}\n**Bots:** ${bots}`)
-    .setThumbnail(guild.iconURL())
+      .setColor(config.mainColor)
+      .setAuthor(`Joined ${guild.name}!`)
+      .setDescription(`**Owner:** ${guild.owner.user.tag}\n**Owner ID:** ${guild.ownerID}\n**Server ID:** ${guild.id}\n**Total Members:** ${guild.memberCount}\n**Humans:** ${humans}\n**Bots:** ${bots}`)
+      .setThumbnail(guild.iconURL())
 
     client.channels.cache.get(config.guildLoggingChannel).send(embed)
 
     guild.owner.send(`Thanks for adding me to ${guild.name}! To get started run \`${prefix}help\` `)
   } catch (e) {
-    console.log(chalk.bgRedBright(`ERROR`) , e)
+    console.log(chalk.bgRedBright(`ERROR`), e)
   }
 })
 
@@ -82,14 +83,14 @@ client.on('guildDelete', guild => {
     const bots = guild.members.cache.filter(member => member.user.bot).size
 
     let embed = new Discord.MessageEmbed()
-    .setColor(config.errorColor)
-    .setAuthor(`Left ${guild.name}`)
-    .setDescription(`**Owner:** ${guild.owner.user.tag}\n**Owner ID:** ${guild.ownerID}\n**Server ID:** ${guild.id}\n**Total Members:** ${guild.memberCount}\n**Humans:** ${humans}\n**Bots:** ${bots}`)
-    .setThumbnail(guild.iconURL())
+      .setColor(config.errorColor)
+      .setAuthor(`Left ${guild.name}`)
+      .setDescription(`**Owner:** ${guild.owner.user.tag}\n**Owner ID:** ${guild.ownerID}\n**Server ID:** ${guild.id}\n**Total Members:** ${guild.memberCount}\n**Humans:** ${humans}\n**Bots:** ${bots}`)
+      .setThumbnail(guild.iconURL())
 
     client.channels.cache.get(config.guildLoggingChannel).send(embed)
   } catch (e) {
-    console.log(chalk.bgRedBright(`ERROR`) , e)
+    console.log(chalk.bgRedBright(`ERROR`), e)
   }
 })
 
@@ -101,8 +102,6 @@ client.on('message', msg => {
     msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${guildPrefix}\``)
   }
 
-  const avatar = client.user.displayAvatarURL();
-
   // If the command doesn't start with the prefix or is sent by a bot return
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
@@ -112,7 +111,10 @@ client.on('message', msg => {
 
   if (!client.commands.has(commandName)) return;
 
+  const avatar = client.user.displayAvatarURL();
   const command = client.commands.get(commandName)
+
+  Statcord.ShardingClient.postCommand(commandName, msg.author.id, client);
 
   if (command.ownerOnly && msg.author.id !== config.ownerID) return;
 
@@ -124,10 +126,10 @@ client.on('message', msg => {
     }
 
     let embed = new Discord.MessageEmbed()
-    .setColor(config.errorColor)
-    .setAuthor(`Error`, avatar)
-    .setTitle(`Missing Arguments`)
-    .setDescription(message)
+      .setColor(config.errorColor)
+      .setAuthor(`Error`, avatar)
+      .setTitle(`Missing Arguments`)
+      .setDescription(message)
 
     return msg.channel.send(embed)
   }
@@ -141,8 +143,49 @@ client.on('message', msg => {
   try {
     command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
   } catch (e) {
-    console.log(chalk.bgRedBright(`ERROR`) , e)
-    msg.channel.send(`Sorry <@${msg.author.id}> there was an error while trying to run your command. If this continues happenning please join the support server and report this error.\n\nThe error is:\n \`${e}\` `);
+    const id = Date.now()
+    const embed = new Discord.MessageEmbed()
+      .setColor(config.errorColor)
+      .setAuthor(`Error`, avatar)
+      .setDescription(`An error occured while attempting to run your command. Make sure I have the required permissions with \`${prefix}diagnose\`. If this continues happening please report this error ID to the [support server](https://dsc.gg/sea).`)
+      .addField(`Error ID`, id)
+    msg.channel.send(embed)
+    console.log(chalk.bgRedBright(`ERROR`) , `An error occured. Error ID: ${id}`)
+    const today = new Date()
+    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let guildID = msg.guild.id;
+    let guildName = msg.guild.name;
+
+    if (!guildID) {
+      guildID = `This command wasn't run in a server`
+    }
+
+    if (!guildName) {
+      guildName = `This command wasn't run in a server`
+    }
+
+    const file = JSON.stringify({
+      "id": id,
+      "message": msg.content,
+      "date": date,
+      "guild": {
+        "ID": guildID,
+        "name": guildName
+      },
+      "author": {
+        "ID": msg.author.id,
+        "name": msg.author.tag
+      },
+      "channelID": msg.channel.id,
+      "error": e.name + e.message
+    })
+
+
+
+    fs.writeFile(`errors/${id}.txt`, file, function(err) {
+      return
+    })
+
   };
 
 })
