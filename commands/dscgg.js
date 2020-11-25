@@ -8,23 +8,19 @@ module.exports = {
   usage: '<part after the links slash>',
   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const errors = require(`../snippets/dscgg.json`)
-    // Code for API V2
-
-    /* axios.get(`https://dsc.gg/api/v2/link/${args[0]}`)
-    .then(function (response) {
-      let embed = new Discord.MessageEmbed()
-      .setColor(config.mainColor)
-      .setAuthor(`Info for link ${response._id}`, avatar)
-      .addField(`Owner:`, `emphty for now`)
-      .addField(`Owner ID:`, `${response.owner}`)
-      .addField(`Type:`, `${response.type}`)
-      .addField(`Leads To:`, ` \`${response.redirect}\` `)
+    const Link = require('dsc.js')
+    const dscClient = new Link.Client({
+      api_key: process.env.DSCGG_Token,
+      version: 2
     })
-    .catch(function (error) {
-      console.log(error)
-    }) */
 
-    /***********************************************************************************/
+    client.fetchLink(args[0])
+    .then((link) => {
+      console.log(e)
+    })
+    .catch((error) => {
+      msg.channel.send(`There was an error getting your link. Make sure you used a valid [dsc.gg](https://dsc.gg) link`)
+    })
 
     // V1 CODE
 
