@@ -1,11 +1,6 @@
 ## About
 ![Discord Server](https://img.shields.io/badge/Discord-dsc.gg/sea-brightgreen?style=for-the-badge) 
 ![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)  
-[![top.gg owner](https://top.gg/api/widget/owner/755474829364428840.svg)](https://top.gg/bot/755474829364428840)  
-[![top.gg status](https://top.gg/api/widget/status/755474829364428840.svg)](https://top.gg/bot/755474829364428840)  
-[![top.gg servers](https://top.gg/api/widget/servers/755474829364428840.svg)](https://top.gg/bot/755474829364428840)  
-[![top.gg upvotes](https://top.gg/api/widget/upvotes/755474829364428840.svg)](https://top.gg/bot/755474829364428840)  
-[![top.gg library](https://top.gg/api/widget/lib/755474829364428840.svg)](https://top.gg/bot/755474829364428840)  
 [![top.gg](https://top.gg/api/widget/755474829364428840.svg)](https://top.gg/bot/755474829364428840)  
 [![discord.boats](https://discord.boats/api/widget/755474829364428840)](https://discord.boats/bot/755474829364428840)  
 
