@@ -99,7 +99,7 @@ client.on('message', msg => {
   if (msg.mentions.has(client.user.id)) {
     console.log(prefix)
     if (msg.author.bot) return;
-    msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${guildPrefix}\``)
+    msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${prefix}\``)
   }
 
   // If the command doesn't start with the prefix or is sent by a bot return
@@ -143,7 +143,8 @@ client.on('message', msg => {
   try {
     command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
   } catch (e) {
-    const id = Date.now()
+    const random = require('./functions/random-letters.js')
+    const id = random.random(5)
     const embed = new Discord.MessageEmbed()
       .setColor(config.errorColor)
       .setAuthor(`Error`, avatar)
@@ -181,7 +182,7 @@ client.on('message', msg => {
     })
 
 
-
+    console.log(e)
     fs.writeFile(`errors/${id}.txt`, file, function(err) {
       return
     })
