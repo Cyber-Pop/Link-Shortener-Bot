@@ -6,7 +6,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   usage: '',
-  execute(msg, args, client, config, prefix, axios, Discord, avatar, tags) {
+  execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const embed = new Discord.MessageEmbed()
     .setColor(config.mainColor)
     const { commands } = msg.client;

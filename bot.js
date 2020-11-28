@@ -7,7 +7,6 @@ let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
 const chalk = require('chalk')
-const tags = require('common-tags')
 
 // Makes a new collection with all the files in /commands
 
@@ -142,7 +141,7 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args, client, config, prefix, axios, Discord, avatar, tags);
+    command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
   } catch (e) {
     const id = Date.now()
     const embed = new Discord.MessageEmbed()
@@ -181,7 +180,8 @@ client.on('message', msg => {
       "error": e.name + e.message
     })
 
-    console.log(e)
+
+
     fs.writeFile(`errors/${id}.txt`, file, function(err) {
       return
     })

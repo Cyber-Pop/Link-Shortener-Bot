@@ -6,7 +6,7 @@ module.exports = {
   args: false,
   cooldown: 10,
   usage: '',
- execute(msg, args, client, config, prefix, axios, Discord, avatar, tags) {
+ execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const dependencies = require('../package.json');
     const sysInfo = require('systeminformation')
     let discordjsVersionRaw = dependencies["dependencies"]["discord.js"];
