@@ -6,7 +6,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   usage: '<link>',
- execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+ execute(msg, args, client, config, prefix, axios, Discord, avatar, tags) {
  {
    msg.channel.send(`This command has been temporarly disabled. Try using \`${prefix}vgd [url]\` instead`)
 /*     let link = encodeURIComponent(args[0], msg)

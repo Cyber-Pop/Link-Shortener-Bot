@@ -5,7 +5,7 @@ module.exports = {
   guildOnly: false,
   cooldown: 3,
   usage: '<name> <activity>',
- execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+ execute(msg, args, client, config, prefix, axios, Discord, avatar, tags) {
     const joined = args.join(' ')
     const split = joined.split('|')
 

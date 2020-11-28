@@ -142,7 +142,7 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
+    command.execute(msg, args, client, config, prefix, axios, Discord, avatar, tags);
   } catch (e) {
     const id = Date.now()
     const embed = new Discord.MessageEmbed()
@@ -181,8 +181,7 @@ client.on('message', msg => {
       "error": e.name + e.message
     })
 
-
-
+    console.log(e)
     fs.writeFile(`errors/${id}.txt`, file, function(err) {
       return
     })
