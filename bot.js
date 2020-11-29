@@ -20,27 +20,6 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-// Starts a express server to be able to receive pings and stay online. If you are self hosting and don't need the pinging comment out the code. There are comments marking the start and end
-
-// Start pinging code
-
-if (config.pingRequired) {
-  const express = require('express')
-  const app = express()
-  const port = config.port
-
-  app.get('/', (req, res) => {
-    res.send(`Hello`)
-    console.log(chalk.inverse(`INFO`), `Pinged!`)
-  })
-
-  app.listen(port, () => {
-    console.log(chalk.inverse(`INFO`), `Express running`)
-  })
-}
-
-// End Pinging Code
-
 // Fires once the bot is ready and logs it to the console then sets it status
 
 client.on('ready', () => {

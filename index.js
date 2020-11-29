@@ -5,6 +5,12 @@ const statcordToken = process.env.STATCORD_TOKEN
 let statcord;
 const manager = new ShardingManager('./bot.js', { token: token});
 const chalk = require('chalk')
+const config = require('./config.json');
+
+if (config.pingRequired) {
+  const runner = require('./functions/express.js')
+  runner.starExpress()
+ }
 
 if (statcordToken) {
   statcord = new Statcord.ShardingClient({
@@ -18,16 +24,16 @@ if (statcordToken) {
 }
 
 manager.on('shardCreate', shard => {
-  console.log(chalk.bgGreenBright(`SHARD`) ,`Launched shard ${shard.id}`);
+  console.log(chalk.bgGreenBright(`SHARD`) ,`Launched Shard ${shard.id}`);
   
   shard.on('death', shard => {
-    console.log(chalk.bgRedBright(`SHARD`), `Shard died`)
+    console.log(chalk.bgRedBright(`SHARD`), `Shard Died`)
   })
   shard.on('disconnect', shard => {
-    console.log(chalk.bgRedBright(`SHARD`), `Shard ${shard.id} disconnected`)
+    console.log(chalk.bgRedBright(`SHARD`), `Shard ${shard.id} Disconnected`)
   })
   shard.on('reconnecting', shard => {
-    console.log(chalk.bgRedBright(`SHARD`), `Shard ${shard.id} reconnecting`)
+    console.log(chalk.bgRedBright(`SHARD`), `Shard ${shard.id} Reconnecting`)
   })
 });
 
