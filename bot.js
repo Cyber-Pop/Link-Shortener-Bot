@@ -28,7 +28,7 @@ client.on('ready', () => {
 
   if (process.env.TRAVIS === 'true') {
     client.user.setPresence(status)
-    .then(console.log(chalk.inverse(`INFO`), `Status Set`))
+    .then(console.log(chalk.inverse(`INFO`), `Travis Status Set`))
     .catch(console.error);
   } else {
     client.user.setPresence(status)
