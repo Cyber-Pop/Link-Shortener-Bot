@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const config = require('./config.json');
 let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
+const travisStatus = { activity: { name: `Running on Travis CI`, type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
 const chalk = require('chalk')
 
@@ -25,9 +26,15 @@ for (const file of commandFiles) {
 client.on('ready', () => {
   console.log(chalk.inverse(`INFO`), `Logged in as ${client.user.tag}!`);
 
-  client.user.setPresence(status)
+  if (process.env.TRAVIS) {
+    client.user.setPresence(status)
     .then(console.log(chalk.inverse(`INFO`), `Status Set`))
     .catch(console.error);
+  } else {
+    client.user.setPresence(status)
+    .then(console.log(chalk.inverse(`INFO`), `Status Set`))
+    .catch(console.error);
+  }
 });
 
 // Fires when a new message is received
