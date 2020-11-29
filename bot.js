@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const config = require('./config.json');
 let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
-const travisStatus = { activity: { name: `Running on Travis CI`, type: 'LISTENING' }, status: 'online' };
+const travisStatus = { activity: { name: `me run on Travis CI`, type: 'WATCHING' }, status: 'online' };
 const axios = require('axios');
 const chalk = require('chalk')
 
