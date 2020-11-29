@@ -26,8 +26,8 @@ for (const file of commandFiles) {
 client.on('ready', () => {
   console.log(chalk.inverse(`INFO`), `Logged in as ${client.user.tag}!`);
 
-  if (process.env.TRAVIS === 'true') {
-    client.user.setPresence(status)
+  if (process.env.TRAVIS) {
+    client.user.setPresence(travisStatus)
     .then(console.log(chalk.inverse(`INFO`), `Travis Status Set`))
     .catch(console.error);
   } else {
