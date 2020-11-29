@@ -9,7 +9,7 @@ const config = require('./config.json');
 
 if (config.pingRequired) {
   const runner = require('./functions/express.js')
-  runner.starExpress()
+  runner.startExpress()
  }
 
 if (statcordToken) {
