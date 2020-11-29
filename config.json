@@ -9,6 +9,5 @@
   "errorColor": "0xff0000",
   "successEmoji": "✅",
   "errorEmoji": "❌",
-  "botVersion": "6.0",
-  "ignore": "This"
+  "botVersion": "6.0"
 }
