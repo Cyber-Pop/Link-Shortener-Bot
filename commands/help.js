@@ -13,9 +13,11 @@ module.exports = {
 
     if (!args.length) {
       const commandList = commands.map(command => command.name).join('\n')
+      const moderationList = commands
 
       embed.setTitle('Commands')
       embed.setDescription(`**List of available commands:**\n${commandList}`)
+      embed.addField(`Moderation`, moderationList.filter(command => command.name === `help`).join('\n'))
     } else {
       // This comment is to make sure you know this is a embeded if statement
       const command = commands.get(args[0])

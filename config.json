@@ -2,7 +2,7 @@
   "ownerID": "738966191519039640",
   "prefix": ">",
   "guildLoggingChannel": "776615536728997938",
-  "pingRequired": true,
+  "pingRequired": false,
   "port": 3000,
   "defautCooldown": 3,
   "mainColor": "0x2ECC71",

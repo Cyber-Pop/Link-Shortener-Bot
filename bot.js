@@ -115,8 +115,6 @@ client.on('message', msg => {
 
   if (command.guildOnly && !msg.guild) {
     return msg.channel.send(`This command does not work in private messages`)
-  } else if (!msg.guild.available) {
-    return msg.channel.send(`This guild is currently unavailable. Please try again later`)
   }
 
   try {
@@ -133,15 +131,15 @@ client.on('message', msg => {
     console.log(chalk.bgRedBright(`ERROR`), `An error occured. Error ID: ${id}`)
     const today = new Date()
     const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    let guildID = msg.guild.id;
-    let guildName = msg.guild.name;
+    let guildID;
+    let guildName;
 
-    if (!guildID) {
+    if (!msg.guild) {
       guildID = `This command wasn't run in a server`
-    }
-
-    if (!guildName) {
       guildName = `This command wasn't run in a server`
+    } else {
+      guildID = msg.guild.id
+      guildName = msg.guild.name
     }
 
     const file = JSON.stringify({
