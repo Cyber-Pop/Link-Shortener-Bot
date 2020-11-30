@@ -6,6 +6,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   usage: '',
+  category: "fun",
   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     let description = ``;
     let embed = new Discord.MessageEmbed()

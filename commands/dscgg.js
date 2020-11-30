@@ -6,6 +6,7 @@ module.exports = {
   args: true,
   cooldown: 3,
   usage: '<part after the links slash>',
+  category: "fun",
   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const errors = require(`../snippets/dscgg.json`)
     const Link = require('dsc.js')
