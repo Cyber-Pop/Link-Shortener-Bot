@@ -5,7 +5,6 @@ const client = new Discord.Client();
 const config = require('./config.json');
 let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
-const travisStatus = { activity: { name: `me run on Travis CI`, type: 'WATCHING' }, status: 'online' };
 const axios = require('axios');
 const chalk = require('chalk')
 
@@ -26,15 +25,9 @@ for (const file of commandFiles) {
 client.on('ready', () => {
   console.log(chalk.inverse(`INFO`), `Logged in as ${client.user.tag}!`);
 
-  if (process.env.TRAVIS) {
-    client.user.setPresence(travisStatus)
-    .then(console.log(chalk.inverse(`INFO`), `Travis Status Set`))
-    .catch(console.error);
-  } else {
-    client.user.setPresence(status)
+  client.user.setPresence(status)
     .then(console.log(chalk.inverse(`INFO`), `Status Set`))
     .catch(console.error);
-  }
 });
 
 // Fires when a new message is received
@@ -137,9 +130,9 @@ client.on('message', msg => {
       .setDescription(`An error occured while attempting to run your command. Make sure I have the required permissions with \`${prefix}diagnose\`. If this continues happening please report this error ID to the [support server](https://dsc.gg/sea).`)
       .addField(`Error ID`, id)
     msg.channel.send(embed)
-    console.log(chalk.bgRedBright(`ERROR`) , `An error occured. Error ID: ${id}`)
+    console.log(chalk.bgRedBright(`ERROR`), `An error occured. Error ID: ${id}`)
     const today = new Date()
-    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     let guildID = msg.guild.id;
     let guildName = msg.guild.name;
 
