@@ -9,6 +9,9 @@ module.exports = {
   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const fs = require('fs')
       fs.readFile(`/home/runner/Link-Shortener-Bot-Canary/errors/${args[0]}.txt`, function (err, data) {
+        if (!data) {
+          return msg.channel.send(`There is no error with that ID`)
+        }
         const file = JSON.parse(data)
         const author = `**Author Name:** ${file.author.name}\n**Author ID:** ${file.author.ID}`
         const guild = `**Guild Name:** ${file.guild.name}\n**Guild ID:** ${file.guild.ID}`

@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const config = require('./config.json');
 let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
+const travisStatus = { activity: { name: `me run on Travis CI`, type: 'WATCHING' }, status: 'online' };
 const axios = require('axios');
 const chalk = require('chalk')
 
@@ -20,35 +21,20 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-// Starts a express server to be able to receive pings and stay online. If you are self hosting and don't need the pinging comment out the code. There are comments marking the start and end
-
-// Start pinging code
-
-if (config.pingRequired) {
-  const express = require('express')
-  const app = express()
-  const port = config.port
-
-  app.get('/', (req, res) => {
-    res.send(`Hello`)
-    console.log(chalk.inverse(`INFO`), `Pinged!`)
-  })
-
-  app.listen(port, () => {
-    console.log(chalk.inverse(`INFO`), `Express running`)
-  })
-}
-
-// End Pinging Code
-
 // Fires once the bot is ready and logs it to the console then sets it status
 
 client.on('ready', () => {
   console.log(chalk.inverse(`INFO`), `Logged in as ${client.user.tag}!`);
 
-  client.user.setPresence(status)
+  if (process.env.TRAVIS) {
+    client.user.setPresence(travisStatus)
+    .then(console.log(chalk.inverse(`INFO`), `Travis Status Set`))
+    .catch(console.error);
+  } else {
+    client.user.setPresence(status)
     .then(console.log(chalk.inverse(`INFO`), `Status Set`))
     .catch(console.error);
+  }
 });
 
 // Fires when a new message is received
@@ -99,7 +85,7 @@ client.on('message', msg => {
   if (msg.mentions.has(client.user.id)) {
     console.log(prefix)
     if (msg.author.bot) return;
-    msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${guildPrefix}\``)
+    msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${prefix}\``)
   }
 
   // If the command doesn't start with the prefix or is sent by a bot return
@@ -143,7 +129,8 @@ client.on('message', msg => {
   try {
     command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
   } catch (e) {
-    const id = Date.now()
+    const random = require('./functions/random-letters.js')
+    const id = random.random(5)
     const embed = new Discord.MessageEmbed()
       .setColor(config.errorColor)
       .setAuthor(`Error`, avatar)
@@ -181,7 +168,7 @@ client.on('message', msg => {
     })
 
 
-
+    console.log(e)
     fs.writeFile(`errors/${id}.txt`, file, function(err) {
       return
     })
