@@ -24,7 +24,6 @@ module.exports = {
         } 
         
         if (command.ownerOnly) {
-          console.log(`command owner only`)
           owner.push(command.name)
         }
 
@@ -45,11 +44,11 @@ module.exports = {
       const list = commands.map(filter)
       
       if (msg.author.id === config.ownerID) {
-        embed.addField(`Owner`, owner)
+        embed.addField(`Owner`, owner.join(","))
       }
-      embed.addField(`Moderation`, moderation)
-      embed.addField(`Fun`, fun)
-      embed.addField(`Utility`, utility)
+      embed.addField(`Moderation`, moderation.join(","))
+      embed.addField(`Fun`, fun.join(","))
+      embed.addField(`Utility`, utility.join(","))
       
 
       embed.setTitle('Commands')
