@@ -14,6 +14,7 @@ module.exports = {
       const embed = new Discord.MessageEmbed()
       .setColor(config.mainColor)
       let owner = [`ignore`]
+      let info = [`ignore`]
       let moderation = [`ignore`]
       let fun = [`ignore`]
       let utility = [`ignore`]
@@ -25,6 +26,10 @@ module.exports = {
         
         if (command.ownerOnly) {
           owner.push(command.name)
+        }
+
+        if (command.category === `info`) {
+          info.push(command.name)
         }
 
         if (command.category === `moderation`) {
@@ -44,11 +49,13 @@ module.exports = {
       const list = commands.map(filter)
       
       if (msg.author.id === config.ownerID) {
-        embed.addField(`Owner`, owner.join(","))
+        embed.addField(`Owner`, `\`${owner.join(" ")}\``)
       }
-      embed.addField(`Moderation`, moderation.join(","))
-      embed.addField(`Fun`, fun.join(","))
-      embed.addField(`Utility`, utility.join(","))
+
+      embed.addField(`Info`, `\`${info.join(" ")}\``)
+      embed.addField(`Moderation`, `\`${moderation.join(" ")}\``)
+      embed.addField(`Fun`, `\`${fun.join(" ")}\``)
+      embed.addField(`Utility`, `\`${utility.join(" ")}\``)
       
 
       embed.setTitle('Commands')
