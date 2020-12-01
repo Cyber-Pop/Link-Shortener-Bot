@@ -13,12 +13,14 @@ module.exports = {
     if (!args.length) {
       const embed = new Discord.MessageEmbed()
       .setColor(config.mainColor)
+      // Here we declare the arrays were the commands will be sorted into
       let owner = []
       let info = []
       let moderation = []
       let fun = []
       let utility = []
       let miscellaneous = []
+      // This function sorts commands into their category. If they don't have one they go in the miscellaneous category
       const filter = (command) => {
         if (!command.category) {
           miscellaneous.push(command.name)
@@ -45,9 +47,9 @@ module.exports = {
         }
       }
 
-      const commandList = commands.map(command => command.name).join('\n')
       const list = commands.map(filter)
       
+      // Checks if they user if the owner and if so it adds a owner command field
       if (msg.author.id === config.ownerID) {
         let ownerJoined = `\`${owner.join(" ")}\``;
         if (owner.length === 0) {
@@ -61,8 +63,7 @@ module.exports = {
       let funJoined = `\`${fun.join(" ")}\``;
       let utilityJoined = `\`${utility.join(" ")}\``;
 
-      console.log(moderation.length)
-
+      // These if statements check if the arrays were emphty after being sorted if so the descriptiond of that categories field gets set to a different message stating that the category has no commands
       if (info.length === 0) {
         infoJoined = `No Commands In This Category`
       }
@@ -78,6 +79,7 @@ module.exports = {
         utilityJoined = `No Commands In This Category`
       }
 
+      // This part makes the categories using the strings generated before
       embed.addField(`Info`, infoJoined)
       embed.addField(`Moderation`, moderationJoined)
       embed.addField(`Fun`, funJoined)
@@ -85,10 +87,12 @@ module.exports = {
 
 
       
-
+      // Sets the title of the embeds
       embed.setTitle('Commands')
+      // Sends the embed
       msg.channel.send(embed)
     } else {
+      // This code is if they do provide an argument
       const embed = new Discord.MessageEmbed()
       .setColor(config.mainColor)
       // This comment is to make sure you know this is a embeded if statement
