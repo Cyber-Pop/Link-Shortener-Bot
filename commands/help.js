@@ -24,10 +24,11 @@ module.exports = {
       const filter = (command) => {
         if (!command.category) {
           miscellaneous.push(command.name)
-        } 
-        
+        }
+  
         if (command.ownerOnly) {
           owner.push(command.name)
+          command.category = `no`
         }
 
         if (command.category === `info`) {
