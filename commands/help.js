@@ -13,12 +13,12 @@ module.exports = {
     if (!args.length) {
       const embed = new Discord.MessageEmbed()
       .setColor(config.mainColor)
-      let owner = [`ignore`]
-      let info = [`ignore`]
-      let moderation = [`ignore`]
-      let fun = [`ignore`]
-      let utility = [`ignore`]
-      let miscellaneous = [`ignore`]
+      let owner = []
+      let info = []
+      let moderation = []
+      let fun = []
+      let utility = []
+      let miscellaneous = []
       const filter = (command) => {
         if (!command.category) {
           miscellaneous.push(command.name)
@@ -49,13 +49,41 @@ module.exports = {
       const list = commands.map(filter)
       
       if (msg.author.id === config.ownerID) {
-        embed.addField(`Owner`, `\`${owner.join(" ")}\``)
+        let ownerJoined = `\`${owner.join(" ")}\``;
+        if (owner.length === 0) {
+          ownerJoined = `No Commands In This Category`
+        }
+        embed.addField(`Owner`, ownerJoined)
+      }
+      // This basiclly joins the array containing the commands in that category and puts a backtick around the the joined array so it's in a codeblock when sent to Discord
+      let infoJoined = `\`${info.join(" ")}\``;
+      let moderationJoined = `\`${moderation.join(" ")}\``;
+      let funJoined = `\`${fun.join(" ")}\``;
+      let utilityJoined = `\`${utility.join(" ")}\``;
+
+      console.log(moderation.length)
+
+      if (info.length === 0) {
+        infoJoined = `No Commands In This Category`
       }
 
-      embed.addField(`Info`, `\`${info.join(" ")}\``)
-      embed.addField(`Moderation`, `\`${moderation.join(" ")}\``)
-      embed.addField(`Fun`, `\`${fun.join(" ")}\``)
-      embed.addField(`Utility`, `\`${utility.join(" ")}\``)
+      if (moderation.length === 0) {
+        moderationJoined = `No Commands In This Category`
+      }
+      if (fun.length === 0) {
+        funJoined = `No Commands In This Category`
+      }
+
+      if (utility.length === 0) {
+        utilityJoined = `No Commands In This Category`
+      }
+
+      embed.addField(`Info`, infoJoined)
+      embed.addField(`Moderation`, moderationJoined)
+      embed.addField(`Fun`, funJoined)
+      embed.addField(`Utility`, utilityJoined)
+
+
       
 
       embed.setTitle('Commands')
