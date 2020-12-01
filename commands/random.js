@@ -6,7 +6,7 @@ module.exports = {
   args: true,
   cooldown: 3,
   usage: '',
-  category: "fun",
+  category: "utility",
   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const random = require('../functions/random-letters.js')
     async function run() {

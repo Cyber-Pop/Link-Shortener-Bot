@@ -6,7 +6,7 @@ module.exports = {
   args: false,
   cooldown: 3,
   usage: '',
-  category: "fun",
+  category: "info",
   execute(msg, args, client, config, prefix, axios, Discord, avatar) {
     const { commands } = msg.client;
 
