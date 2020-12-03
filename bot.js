@@ -7,6 +7,11 @@ let prefix = config.prefix;
 const status = { activity: { name: prefix + 'help', type: 'LISTENING' }, status: 'online' };
 const axios = require('axios');
 const chalk = require('chalk')
+const blapi = require('blapi')
+const Keyv = require('keyv');
+let blacklist;
+
+//blapi.handle(client, apikeys, 120)
 
 // Makes a new collection with all the files in /commands
 
@@ -29,6 +34,13 @@ client.on('ready', () => {
     .then(console.log(chalk.inverse(`INFO`), `Status Set`))
     .catch(console.error);
 });
+
+async function blacklistConnect() {
+  blacklist = await new Keyv('sqlite://databases/blacklist.sqlite');
+  blacklist.on('error', err => console.log(chalk.bgRedBright(`ERROR`), `Blacklist Database Connection Error`));
+}
+
+blacklistConnect()
 
 // Fires when a new message is received
 client.on('guildCreate', guild => {
@@ -118,7 +130,7 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args, client, config, prefix, axios, Discord, avatar);
+    command.execute(msg, args, client, config, prefix, axios, Discord, avatar, blacklist);
   } catch (e) {
     const random = require('./functions/random-letters.js')
     const id = random.random(5)
@@ -155,7 +167,7 @@ client.on('message', msg => {
         "name": msg.author.tag
       },
       "channelID": msg.channel.id,
-      "error": e.name + e.message
+      "error": e.name + ' ' + e.message
     })
 
 

@@ -7,7 +7,7 @@ module.exports = {
   usage: '<link>',
   cooldown: 3,
   category: "utility",
- execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+ execute(msg, args, client, config, prefix, axios, Discord, avatar, blacklist) {
     let link = encodeURIComponent(args[0], msg)
     const errors = require(`../snippets/vgd.json`)
 

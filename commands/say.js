@@ -7,7 +7,7 @@ module.exports = {
   cooldown: 3,
   usage: '',
   category: "fun",
-  execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+  execute(msg, args, client, config, prefix, axios, Discord, avatar, blacklist) {
       msg.channel.send(args.join(" "))
       try {
         msg.delete()

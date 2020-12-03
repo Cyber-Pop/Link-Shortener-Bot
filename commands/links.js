@@ -7,7 +7,7 @@ module.exports = {
   cooldown: 3,
   usage: '',
   category: "info",
- execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+ execute(msg, args, client, config, prefix, axios, Discord, avatar, blacklist) {
     const embed = new Discord.MessageEmbed()
     .setColor(config.mainColor)
     .setAuthor(`Links`, avatar)

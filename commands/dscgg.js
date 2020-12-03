@@ -7,7 +7,7 @@ module.exports = {
   cooldown: 3,
   usage: '<part after the links slash>',
   category: "utility",
-  execute(msg, args, client, config, prefix, axios, Discord, avatar) {
+  execute(msg, args, client, config, prefix, axios, Discord, avatar, blacklist) {
     const errors = require(`../snippets/dscgg.json`)
     const Link = require('dsc.js')
     const dscClient = new Link.Client({
@@ -15,7 +15,7 @@ module.exports = {
       version: 2
     })
 
-    client.fetchLink(args[0])
+    dscClient.fetchLink(args[0])
     .then((link) => {
       console.log(e)
     })
