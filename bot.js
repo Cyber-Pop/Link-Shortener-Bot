@@ -98,9 +98,8 @@ client.on('message', async msg => {
   // If the command doesn't start with the prefix or is sent by a bot return
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
-    const blacklisted = await blacklistCheck.check(msg, blacklist)
-    console.log(blacklisted)
-    if (blacklisted) return;
+  const blacklisted = await blacklistCheck.check(msg, blacklist)
+  if (blacklisted) return;
 
 
   check()
