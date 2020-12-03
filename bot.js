@@ -39,6 +39,7 @@ client.on('ready', () => {
 async function blacklistConnect() {
   blacklist = await new Keyv('sqlite://databases/blacklist.sqlite');
   blacklist.on('error', err => console.log(chalk.bgRedBright(`ERROR`), `Blacklist Database Connection Error`));
+  console.log(chalk.green(`SUCCESS`), `Connected to Blacklist Database`)
 }
 
 blacklistConnect()
@@ -86,18 +87,18 @@ client.on('guildDelete', guild => {
   }
 })
 
-client.on('message', msg => {
-  blacklistCheck.check(msg, msg.author.id, blacklist)
-  
-  // Checks for mentions and if one includes the bot it sends a info message
+client.on('message', msg => {  
+  /* // Checks for mentions and if one includes the bot it sends a info message
   if (msg.mentions.has(client.user.id)) {
-    console.log(prefix)
+    blacklistCheck.check(msg, blacklist)
     if (msg.author.bot) return;
     msg.channel.send(`Hey, I'm ${client.user.username}. My prefix is \`${prefix}\``)
   }
-
+ */
   // If the command doesn't start with the prefix or is sent by a bot return
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  const blacklisted = blacklistCheck.check(msg, blacklist)
+  console.log(blacklisted)
   // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
