@@ -1,19 +1,16 @@
 module.exports = {
-  async function check(msg, blacklist) {
-    //async function run() {
+  async check(msg, blacklist) {
       let user = await blacklist.get(msg.author.id)
       let blacklisted
       if (user) {
         msg.channel.send(`Sorry but you have been blacklisted`);
         blacklisted = await true;
       }
-
-    //}
     
     if (blacklisted) {
-      console.log(`blacklisted`)
+      return true;
     } else {
-      console.log(`not blacklist`)
+      return false;
     }
 
   }

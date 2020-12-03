@@ -87,7 +87,7 @@ client.on('guildDelete', guild => {
   }
 })
 
-client.on('message', msg => {  
+client.on('message', async msg => {
   /* // Checks for mentions and if one includes the bot it sends a info message
   if (msg.mentions.has(client.user.id)) {
     blacklistCheck.check(msg, blacklist)
@@ -97,8 +97,14 @@ client.on('message', msg => {
  */
   // If the command doesn't start with the prefix or is sent by a bot return
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
-  const blacklisted = blacklistCheck.check(msg, blacklist)
-  console.log(blacklisted)
+
+    const blacklisted = await blacklistCheck.check(msg, blacklist)
+    console.log(blacklisted)
+    if (blacklisted) return;
+
+
+  check()
+
   // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
