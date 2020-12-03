@@ -9,6 +9,7 @@ const axios = require('axios');
 const chalk = require('chalk')
 const blapi = require('blapi')
 const Keyv = require('keyv');
+const blacklistCheck = require('./functions/checkBlacklist.js')
 let blacklist;
 
 //blapi.handle(client, apikeys, 120)
@@ -86,6 +87,8 @@ client.on('guildDelete', guild => {
 })
 
 client.on('message', msg => {
+  blacklistCheck.check(msg, msg.author.id, blacklist)
+  
   // Checks for mentions and if one includes the bot it sends a info message
   if (msg.mentions.has(client.user.id)) {
     console.log(prefix)
