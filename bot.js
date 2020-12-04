@@ -101,9 +101,6 @@ client.on('message', async msg => {
   const blacklisted = await blacklistCheck.check(msg, blacklist)
   if (blacklisted) return;
 
-
-  check()
-
   // Cuts off the prefix and .trim removes useless spaces .split seperates the string into words and puts it in a array
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);

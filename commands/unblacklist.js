@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'blacklist',
+  name: 'unblacklist',
   description: 'Prevent someone from using the bot',
   ownerOnly: true,
   guildOnly: false,
@@ -13,13 +13,13 @@ module.exports = {
 
     async function run() {
       const data = await blacklist.get(id)
-      if (data) {
-        return msg.channel.send(`That user is already blacklisted`)
+      if (!data) {
+        return msg.channel.send(`That user isn't blacklisted`)
       }
       try {
         const fetched = await client.users.fetch(id)
-        await blacklist.set(id, 'blacklist')
-        msg.channel.send(`Blacklisted **${fetched.tag}**`)
+        await blacklist.delete(id, 'blacklist')
+        msg.channel.send(`Unblacklisted **${fetched.tag}**`)
       } catch (e) {
         msg.channel.send(`There was an error while attempting to blacklist that user`)
       }
