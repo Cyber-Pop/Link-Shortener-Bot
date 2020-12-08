@@ -9,6 +9,7 @@ module.exports = {
   category: "moderation",
   execute(msg, args, client, config, prefix, axios, Discord, avatar, blacklist) {
     const amount = args[0] + 1;
+  // test
     msg.channel.bulkDelete(amount, true)
     .then(function (messages) {
       console.log(`Bulk deleted ${messages.size} messages`)
