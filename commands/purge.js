@@ -11,7 +11,7 @@ module.exports = {
     const amount = parseInt(args[0]) + 1;
     msg.channel.bulkDelete(amount, true)
     .then(function (messages) {
-      console.log(`Bulk deleted ${messages.size} messages`)
+      msg.channel.send(`Deleted ${messages.size - 1} messages`)
     })
   .catch(console.error);
 
