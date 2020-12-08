@@ -24,7 +24,7 @@ if (statcordToken) {
 }
 
 manager.on('shardCreate', shard => {
-  console.log(chalk.green(`SHARD`), `Launched Shard ${shard.id}`);
+  console.log(chalk.blue(`SHARD`), `Launched Shard ${shard.id}`);
 
   shard.on('death', shard => {
     console.log(chalk.red(`SHARD`), `Shard Died`)

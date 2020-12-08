@@ -29,10 +29,10 @@ for (const file of commandFiles) {
 // Fires once the bot is ready and logs it to the console then sets it status
 
 client.on('ready', () => {
-  console.log(chalk.inverse(`INFO`), `Logged in as ${client.user.tag}!`);
+  console.log(chalk.yellow(`INFO`), `Logged in as ${client.user.tag}!`);
 
   client.user.setPresence(status)
-    .then(console.log(chalk.inverse(`INFO`), `Status Set`))
+    .then(console.log(chalk.yellow(`INFO`), `Status Set`))
     .catch(console.error);
 });
 
