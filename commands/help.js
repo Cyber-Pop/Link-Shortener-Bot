@@ -98,7 +98,7 @@ module.exports = {
       .setColor(config.mainColor)
       // This comment is to make sure you know this is a embeded if statement
       const command = commands.get(args[0])
-      if (!command) {
+      if (!command || command.ownerOnly) {
         msg.channel.send(`${args[0]} is a not a valid command`)
       } else {
         let description = command.description;
