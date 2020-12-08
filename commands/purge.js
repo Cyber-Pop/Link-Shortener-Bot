@@ -12,7 +12,6 @@ module.exports = {
     if (amount > 100) {
       return msg.channel.send(`You can only delete up to 100 messages`)
     }
-    // test
     msg.delete()
     msg.channel.bulkDelete(amount, true)
     .then(function (messages) {
