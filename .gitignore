@@ -1,3 +1,4 @@
 /errors
 .env
 ./databases/blacklist.sqlite
+./config.json

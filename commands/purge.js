@@ -15,7 +15,11 @@ module.exports = {
     msg.delete()
     msg.channel.bulkDelete(amount, true)
     .then(function (messages) {
-      msg.channel.send(`Deleted ${messages.size} messages`)
+      async function run() {
+        let m = await msg.channel.send(`Deleted ${messages.size} messages`)
+        m.react('785686207597379615')
+      }
+      run()
     })
   .catch(console.error);
 
