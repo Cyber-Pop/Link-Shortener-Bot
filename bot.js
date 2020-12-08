@@ -146,7 +146,7 @@ client.on('message', async msg => {
       .setDescription(`An error occured while attempting to run your command. Make sure I have the required permissions with \`${prefix}diagnose\`. If this continues happening please report this error ID to the [support server](https://dsc.gg/sea).`)
       .addField(`Error ID`, id)
     msg.channel.send(embed)
-    console.log(chalk.bgRedBright(`ERROR`), `An error occured. Error ID: ${id}`)
+    console.log(chalk.red(`ERROR`), `An error occured. Error ID: ${id}`)
     const today = new Date()
     const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     let guildID;
