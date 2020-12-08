@@ -8,10 +8,14 @@ module.exports = {
   usage: '',
   category: "moderation",
   execute(msg, args, client, config, prefix, axios, Discord, avatar, blacklist) {
-    const amount = parseInt(args[0]) + 1;
+    const amount = parseInt(args[0]);
+    if (amount > 100) {
+      return msg.channel.send(`You can only delete up to 100 messages`)
+    }
+    msg.delete()
     msg.channel.bulkDelete(amount, true)
     .then(function (messages) {
-      msg.channel.send(`Deleted ${messages.size - 1} messages`)
+      msg.channel.send(`Deleted ${messages.size} messages`)
     })
   .catch(console.error);
 
